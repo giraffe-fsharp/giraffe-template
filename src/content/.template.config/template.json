@@ -1,0 +1,11 @@
+{
+  "identity": "Giraffe.Template",
+  "author": "David Sinclair and contributors",
+  "classifications": [ "Web", "Giraffe", "ASP.NET", "ASP.NET Core" ],
+  "name": "Giraffe Web App",
+  "tags": {
+    "language": "F#"
+  },
+  "shortName": "giraffe",
+  "sourceName": "_AppName"
+}
