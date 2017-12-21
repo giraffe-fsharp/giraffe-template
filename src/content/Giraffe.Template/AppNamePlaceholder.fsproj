@@ -3,9 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <DebugType>portable</DebugType>
-    <AssemblyName>_AppName</AssemblyName>
+    <AssemblyName>AppNamePlaceholder</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>_AppName</PackageId>
     <RuntimeFrameworkVersion>2.0.0</RuntimeFrameworkVersion>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
   </PropertyGroup>
@@ -21,25 +20,15 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.*" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.0.*" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.*" />
-    <PackageReference Include="Giraffe" Version="0.1.0-beta-400" />
-    <PackageReference Include="Giraffe.Razor" Version="0.1.0-beta-110" />
+    <PackageReference Include="Giraffe" Version="0.1.0-beta-600" />
   </ItemGroup>
 
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Watch Include="**\*.cshtml" Exclude="bin\**\*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Models\*.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Views\*.cshtml;WebRoot\**\*">
+    <Content Include="WebRoot\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -2,16 +2,16 @@
 <package>
     <metadata>
         <id>giraffe-template</id>
-        <version>0.9.0</version>
+        <version>0.10.0</version>
         <title>Giraffe Template for dotnet-new</title>
         <summary>A dotnet-new template for Giraffe web applications.</summary>
         <description>A dotnet-new template for Giraffe web applications.</description>
-        <authors>David Sinclair</authors>
+        <authors>Dustin Moris Gorski, David Sinclair and contributors</authors>
         <owners>Dustin Moris Gorski</owners>
-        <projectUrl>https://github.com/dustinmoris/Giraffe</projectUrl>
-        <iconUrl>https://raw.githubusercontent.com/dustinmoris/giraffe/master/giraffe-64x64.png</iconUrl>
+        <projectUrl>https://github.com/giraffe-fsharp/giraffe-template</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/giraffe-fsharp/Giraffe/master/giraffe-64x64.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <releaseNotes></releaseNotes>
+        <releaseNotes>https://raw.githubusercontent.com/giraffe-fsharp/Giraffe/master/RELEASE_NOTES.md</releaseNotes>
         <language>en-GB</language>
         <tags>giraffe web app razor pages micro service dotnet new template</tags>
         <packageTypes>
