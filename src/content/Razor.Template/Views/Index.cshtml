@@ -1,0 +1,10 @@
+@model AppNamePlaceholder.Models.Message
+@{
+    Layout = "_Layout";
+}
+@{
+    await Html.RenderPartialAsync("Partial");
+}
+<p>
+    @Model.Text
+</p>

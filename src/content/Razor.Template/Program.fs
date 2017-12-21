@@ -1,27 +1,31 @@
-module _AppName.App
+module AppNamePlaceholder.App
 
 open System
 open System.IO
-open System.Collections.Generic
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Cors.Infrastructure
 open Microsoft.AspNetCore.Hosting
-open Microsoft.AspNetCore.Http
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
 open Giraffe.Razor
-open _AppName.Models
+open AppNamePlaceholder.Models
 
 // ---------------------------------
 // Web app
 // ---------------------------------
 
+let indexHandler (name : string) =
+    let greetings = sprintf "Hello %s, from Giraffe!" name
+    let model     = { Text = greetings }
+    razorHtmlView "Index" model
+
 let webApp =
     choose [
         GET >=>
             choose [
-                route "/" >=> razorHtmlView "Index" { Text = "Hello world, from Giraffe!" }
+                route "/" >=> indexHandler "world"
+                routef "/hello/%s" indexHandler
             ]
         setStatusCode 404 >=> text "Not Found" ]
 
@@ -38,7 +42,10 @@ let errorHandler (ex : Exception) (logger : ILogger) =
 // ---------------------------------
 
 let configureCors (builder : CorsPolicyBuilder) =
-    builder.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader() |> ignore
+    builder.WithOrigins("http://localhost:8080")
+           .AllowAnyMethod()
+           .AllowAnyHeader()
+           |> ignore
 
 let configureApp (app : IApplicationBuilder) =
     app.UseCors(configureCors)
@@ -58,7 +65,7 @@ let configureLogging (builder : ILoggingBuilder) =
     builder.AddFilter(filter).AddConsole().AddDebug() |> ignore
 
 [<EntryPoint>]
-let main argv =
+let main _ =
     let contentRoot = Directory.GetCurrentDirectory()
     let webRoot     = Path.Combine(contentRoot, "WebRoot")
     WebHostBuilder()

@@ -1,11 +1,49 @@
 {
   "identity": "Giraffe.Template",
-  "author": "David Sinclair and contributors",
-  "classifications": [ "Web", "Giraffe", "ASP.NET", "ASP.NET Core" ],
+  "shortName": "giraffe",
   "name": "Giraffe Web App",
+  "author": "Dustin Moris Gorski, David Sinclair and contributors",
+  "classifications": [ "Web", "Giraffe", "ASP.NET" ],
   "tags": {
     "language": "F#"
   },
-  "shortName": "giraffe",
-  "sourceName": "_AppName"
+  "sourceName": "AppNamePlaceholder",
+  "symbols": {
+    "ViewEngine": {
+      "type": "parameter",
+      "dataType": "choice",
+      "defaultValue": "giraffe",
+      "choices": [
+        {
+          "choice": "giraffe",
+          "description": "Default GiraffeViewEngine"
+        },
+        {
+          "choice": "razor",
+          "description": "MVC Razor views"
+        },
+        {
+          "choice": "dotliquid",
+          "description": "DotLiquid template engine"
+        }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "source": "./Giraffe.Template/",
+      "target": "./",
+      "condition": "(ViewEngine == \"giraffe\")"
+    },
+    {
+      "source": "./Razor.Template/",
+      "target": "./",
+      "condition": "(ViewEngine == \"razor\")"
+    },
+    {
+      "source": "./DotLiquid.Template/",
+      "target": "./",
+      "condition": "(ViewEngine == \"dotliquid\")"
+    }
+  ]
 }

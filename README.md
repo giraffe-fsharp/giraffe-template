@@ -11,6 +11,8 @@ Giraffe web application template for the `dotnet new` command.
 - [Documentation](#documentation)
     - [Installation](#installation)
     - [Usage](#usage)
+        - [ViewEngine options](#viewengine-options)
+        - [Restoring and building](#restoring-and-building)
     - [Updating the template](#updating-the-template)
 - [Nightly builds and NuGet feed](#nightly-builds-and-nuget-feed)
 - [More information](#more-information)
@@ -36,9 +38,31 @@ After the template has been installed you can create a new Giraffe web applicati
 dotnet new giraffe
 ```
 
-After successfully running this command you should be able to restore, build and run your Giraffe web application without any further doing:
+#### ViewEngine options
 
-##### Windows example:
+The Giraffe template supports three different view engine types at the moment:
+
+- `xmlviewengine` (default)
+- `razor`
+- `dotliquid`
+
+You can optionally specify the `--ViewEngine` parameter (short `-V`) and pass in one of the supported values:
+
+```
+dotnet new giraffe --ViewEngine razor
+```
+
+...or using `-V`:
+
+```
+dotnet new giraffe -V dotliquid
+```
+
+If you do not specify the `--ViewEngine` parameter then the `dotnet new giraffe` command will automatically create a Giraffe web application with the default `Giraffe.XmlViewEngine` engine.
+
+#### Restoring and building
+
+After successfully creating a new application you should be able to restore, build and run your Giraffe web application without any further doing:
 
 ```
 mkdir GiraffeSampleApp
@@ -59,7 +83,7 @@ Whenever there is a new version of the Giraffe template you can update it by re-
 You can also explicitly set the version when installing the template:
 
 ```
-dotnet new -i "giraffe-template::0.9.0"
+dotnet new -i "giraffe-template::0.10.0"
 ```
 
 ## Nightly builds and NuGet feed
