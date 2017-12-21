@@ -42,7 +42,7 @@ dotnet new giraffe
 
 The Giraffe template supports three different view engine types at the moment:
 
-- `xmlviewengine` (default)
+- `giraffe` (default)
 - `razor`
 - `dotliquid`
 
@@ -58,7 +58,9 @@ dotnet new giraffe --ViewEngine razor
 dotnet new giraffe -V dotliquid
 ```
 
-If you do not specify the `--ViewEngine` parameter then the `dotnet new giraffe` command will automatically create a Giraffe web application with the default `Giraffe.XmlViewEngine` engine.
+If you do not specify the `--ViewEngine` parameter then the `dotnet new giraffe` command will automatically create a Giraffe web application with the default `Giraffe.GiraffeViewEngine` engine.
+
+For further help you can also run `dotnet new giraffe --help` which will print all available parameters and their supported values.
 
 #### Restoring and building
 
@@ -74,7 +76,6 @@ dotnet restore
 dotnet build
 dotnet run
 ```
-
 
 ### Updating the template
 
