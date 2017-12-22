@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.*" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.0.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.*" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.*" />
+    <PackageReference Include="xunit" Version="2.3.*" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/AppNamePlaceholder/AppNamePlaceholder.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Tests.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+</Project>
