@@ -8,19 +8,17 @@ Giraffe web application template for the `dotnet new` command.
 
 ## Table of contents
 
-- [Documentation](#documentation)
-    - [Installation](#installation)
-    - [Usage](#usage)
-        - [ViewEngine options](#viewengine-options)
-        - [Restoring and building](#restoring-and-building)
-    - [Updating the template](#updating-the-template)
+- [Installation](#installation)
+- [Basics](#basics)
+- [Optional parameters](#optional-parameters)
+    - [--ViewEngine](#--viewengine)
+    - [--IncludeTests](#--includetests)
+- [Updating the template](#updating-the-template)
 - [Nightly builds and NuGet feed](#nightly-builds-and-nuget-feed)
 - [More information](#more-information)
 - [License](#license)
 
-## Documentation
-
-### Installation
+## Installation
 
 The easiest way to install the Giraffe template is by running the following command in your terminal:
 
@@ -30,7 +28,7 @@ dotnet new -i "giraffe-template::*"
 
 This will pull and install the [giraffe-template NuGet package](https://www.nuget.org/packages/giraffe-template/) in your .NET environment and make it available to subsequent `dotnet new` commands.
 
-### Usage
+## Basics
 
 After the template has been installed you can create a new Giraffe web application by simply running `dotnet new giraffe` in your terminal:
 
@@ -38,53 +36,56 @@ After the template has been installed you can create a new Giraffe web applicati
 dotnet new giraffe
 ```
 
-#### ViewEngine options
+The Giraffe template only supports the F# language at the moment.
 
-The Giraffe template supports three different view engine types at the moment:
+Further information and more help can be found by running `dotnet new giraffe --help` in your terminal.
+
+## Optional parameters
+
+### --ViewEngine
+
+The Giraffe template supports three different view engines:
 
 - `giraffe` (default)
 - `razor`
 - `dotliquid`
 
-You can optionally specify the `--ViewEngine` parameter (short `-V`) and pass in one of the supported values:
+You can optionally specify the `--ViewEngine` parameter (short `-V`) to pass in one of the supported values:
 
 ```
 dotnet new giraffe --ViewEngine razor
 ```
 
-...or using `-V`:
+The same using the abbreviated `-V` parameter:
 
 ```
-dotnet new giraffe -V dotliquid
+dotnet new giraffe -V razor
 ```
 
-If you do not specify the `--ViewEngine` parameter then the `dotnet new giraffe` command will automatically create a Giraffe web application with the default `Giraffe.GiraffeViewEngine` engine.
+If you do not specify the `--ViewEngine` parameter then the `dotnet new giraffe` command will automatically create a Giraffe web application with the default `GiraffeViewEngine` engine.
 
-For further help you can also run `dotnet new giraffe --help` which will print all available parameters and their supported values.
+### --IncludeTests
 
-#### Restoring and building
-
-After successfully creating a new application you should be able to restore, build and run your Giraffe web application without any further doing:
+When creating a new Giraffe web application you can optionally specify the `--IncludeTests` (short `-I`) parameter to automatically generate a default unit test project for your application:
 
 ```
-mkdir GiraffeSampleApp
-cd GiraffeSampleApp
-
-dotnet new giraffe
-
-dotnet restore
-dotnet build
-dotnet run
+dotnet new giraffe --IncludeTests
 ```
 
-### Updating the template
+This parameter can also be combined with other parameters:
+
+```
+dotnet new giraffe --ViewEngine razor --IncludeTests
+```
+
+## Updating the template
 
 Whenever there is a new version of the Giraffe template you can update it by re-running the [instructions from the installation](#installation).
 
 You can also explicitly set the version when installing the template:
 
 ```
-dotnet new -i "giraffe-template::0.10.0"
+dotnet new -i "giraffe-template::0.11.0"
 ```
 
 ## Nightly builds and NuGet feed

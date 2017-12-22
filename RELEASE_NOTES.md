@@ -1,6 +1,32 @@
 Release Notes
 =============
 
+## 0.11.0
+
+#### New features
+
+Added an additional parameter called `IncludeTests` which can be added to auto generate an accompanying test project to your Giraffe web application.
+
+#### Examples:
+
+Default Giraffe web application with the `GiraffeViewEngine` and no tests:
+
+```
+dotnet new giraffe
+```
+
+Default Giraffe web application with the `GiraffeViewEngine` and a default test project:
+
+```
+dotnet new giraffe --IncludeTests
+```
+
+Giraffe web application with the Razor view engine and a default test project:
+
+```
+dotnet new giraffe --ViewEngine razor --IncludeTests
+```
+
 ## 0.10.0
 
 #### New features

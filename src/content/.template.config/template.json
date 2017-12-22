@@ -27,23 +27,50 @@
           "description": "DotLiquid template engine"
         }
       ]
+    },
+    "IncludeTests": {
+      "type": "parameter",
+      "dataType": "bool",
+      "defaultValue": "false"
     }
   },
   "sources": [
     {
-      "source": "./Giraffe.Template/",
+      "source": "./Giraffe/",
       "target": "./",
-      "condition": "(ViewEngine == \"giraffe\")"
+      "condition": "(ViewEngine == \"giraffe\")",
+      "modifiers": [
+        {
+          "condition": "(!IncludeTests)",
+          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+        }
+      ]
     },
     {
-      "source": "./Razor.Template/",
+      "source": "./Razor/",
       "target": "./",
-      "condition": "(ViewEngine == \"razor\")"
+      "condition": "(ViewEngine == \"razor\")",
+      "modifiers": [
+        {
+          "condition": "(!IncludeTests)",
+          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+        }
+      ]
     },
     {
-      "source": "./DotLiquid.Template/",
+      "source": "./DotLiquid/",
       "target": "./",
-      "condition": "(ViewEngine == \"dotliquid\")"
+      "condition": "(ViewEngine == \"dotliquid\")",
+      "modifiers": [
+        {
+          "condition": "(!IncludeTests)",
+          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+        }
+      ]
+    },
+    {
+      "source": "./_Default/",
+      "target": "./"
     }
   ]
 }
