@@ -25,6 +25,10 @@
         {
           "choice": "dotliquid",
           "description": "DotLiquid template engine"
+        },
+        {
+          "choice": "none",
+          "description": "No template engine (API only)"
         }
       ]
     },
@@ -61,6 +65,17 @@
       "source": "./DotLiquid/",
       "target": "./",
       "condition": "(ViewEngine == \"dotliquid\")",
+      "modifiers": [
+        {
+          "condition": "(!IncludeTests)",
+          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+        }
+      ]
+    },
+    {
+      "source": "./None/",
+      "target": "./",
+      "condition": "(ViewEngine == \"none\")",
       "modifiers": [
         {
           "condition": "(!IncludeTests)",
