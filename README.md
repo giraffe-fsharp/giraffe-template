@@ -13,6 +13,7 @@ Giraffe web application template for the `dotnet new` command.
 - [Optional parameters](#optional-parameters)
     - [--ViewEngine](#--viewengine)
     - [--IncludeTests](#--includetests)
+    - [--UsePaket](#--usepaket)
 - [Updating the template](#updating-the-template)
 - [Nightly builds and NuGet feed](#nightly-builds-and-nuget-feed)
 - [More information](#more-information)
@@ -77,6 +78,20 @@ This parameter can also be combined with other parameters:
 ```
 dotnet new giraffe --ViewEngine razor --IncludeTests
 ```
+
+### --UsePaket
+
+If you prefer [Paket](https://fsprojects.github.io/) for managing your project dependencies you can specify `--UsePaket` (`-U` for short):
+
+```
+dotnet new giraffe --UsePaket
+```
+
+This will exclude the package references from the *fsproj* file and include the needed *paket.dependencies* and *paket.references* files.
+
+> If you do not run *build.bat* (or *build.sh* on **nix) before running `dotnet restore` you need to manually run `./.paket/paket.exe install` (or `mono ./.paket/paket.exe install`).
+
+See the [Paket documentation](https://fsprojects.github.io/) for more details.
 
 ## Updating the template
 
