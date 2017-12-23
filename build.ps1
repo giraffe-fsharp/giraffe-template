@@ -116,6 +116,16 @@ dotnet-restore $dotLiquidTests
 dotnet-build   $dotLiquidTests
 dotnet-test    $dotLiquidTests
 
+# Test None template
+$noneApp   = "src/content/None/src/AppNamePlaceholder/AppNamePlaceholder.fsproj"
+$noneTests = "src/content/None/tests/AppNamePlaceholder.Tests/AppNamePlaceholder.Tests.fsproj"
+
+dotnet-restore $noneApp
+dotnet-build   $noneApp
+dotnet-restore $noneTests
+dotnet-build   $noneTests
+dotnet-test    $noneTests
+
 # Create template NuGet package
 Remove-BuildArtifacts
 Invoke-Cmd "nuget pack src/giraffe-template.nuspec"
