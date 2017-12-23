@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+## Next version
+
+#### Enhancements
+
+- Updated the default Giraffe tempalte to the latest version of Giraffe and made use of the new HTML attributes from the `GiraffeViewEngine`.
+
 ## 0.11.0
 
 #### New features
