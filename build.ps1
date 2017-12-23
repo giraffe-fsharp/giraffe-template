@@ -55,6 +55,16 @@ function Update-AppVeyorBuildVersion ($project)
     }
 }
 
+function Remove-BuildArtifacts
+{
+    Write-Host "Deleting build artifacts..." -ForegroundColor Magenta
+
+    Get-ChildItem -Include "bin", "obj" -Recurse -Directory `
+    | ForEach-Object {
+        Write-Host "Removing folder $_" -ForegroundColor DarkGray
+        Remove-Item $_ -Recurse -Force }
+}
+
 # ----------------------------------------------
 # Main
 # ----------------------------------------------
@@ -66,4 +76,5 @@ Test-Version $nuspec
 
 Write-Host "Building giraffe-template package..." -ForegroundColor Magenta
 
+Remove-BuildArtifacts
 Invoke-Cmd "nuget pack src/giraffe-template.nuspec"

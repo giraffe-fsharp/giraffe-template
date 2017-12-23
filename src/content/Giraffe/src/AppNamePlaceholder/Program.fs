@@ -27,9 +27,9 @@ let layout (content: XmlNode list) =
     html [] [
         head [] [
             title []  [ encodedText "AppNamePlaceholder" ]
-            link [ attr "rel"  "stylesheet"
-                   attr "type" "text/css"
-                   attr "href" "/main.css" ]
+            link [ _rel  "stylesheet"
+                   _type "text/css"
+                   _href "/main.css" ]
         ]
         body [] content
     ]
