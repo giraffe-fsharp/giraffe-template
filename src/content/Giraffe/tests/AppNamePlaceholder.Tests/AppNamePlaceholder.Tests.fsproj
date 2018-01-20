@@ -4,7 +4,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(UsePaket)' == false OR '$(UsePaket)' == ''">
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.*" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.*" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.0.*" />
@@ -25,4 +25,5 @@
     <Compile Include="Tests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
+  <Import Condition="'$(UsePaket)' == true" Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
