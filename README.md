@@ -50,6 +50,7 @@ The Giraffe template supports three different view engines:
 - `giraffe` (default)
 - `razor`
 - `dotliquid`
+- `none`
 
 You can optionally specify the `--ViewEngine` parameter (short `-V`) to pass in one of the supported values:
 
@@ -81,7 +82,7 @@ dotnet new giraffe --ViewEngine razor --IncludeTests
 
 ### --UsePaket
 
-If you prefer [Paket](https://fsprojects.github.io/) for managing your project dependencies you can specify `--UsePaket` (`-U` for short):
+If you prefer [Paket](https://fsprojects.github.io/) for managing your project dependencies then you can specify `--UsePaket` (`-U` for short):
 
 ```
 dotnet new giraffe --UsePaket
@@ -121,4 +122,4 @@ For more information about Giraffe, how to set up a development environment, con
 
 ## License
 
-[Apache 2.0](https://raw.githubusercontent.com/giraffe-fsharp/Giraffe.DotLiquid/master/LICENSE)
+[Apache 2.0](https://raw.githubusercontent.com/giraffe-fsharp/giraffe-template/master/LICENSE)

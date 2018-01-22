@@ -1,0 +1,17 @@
+storage: none
+source https://api.nuget.org/v3/index.json
+
+clitool dotnet-xunit
+nuget Microsoft.AspNetCore.Cors
+nuget Microsoft.AspNetCore.Hosting
+nuget Microsoft.AspNetCore.Diagnostics
+nuget Microsoft.AspNetCore.Server.Kestrel
+nuget Microsoft.AspNetCore.Server.IISIntegration
+nuget Microsoft.Extensions.Logging.Console
+nuget Microsoft.Extensions.Logging.Debug
+nuget Microsoft.Extensions.DependencyInjection
+nuget Giraffe
+nuget Microsoft.NET.Test.Sdk
+nuget xunit
+nuget xunit.runner.visualstudio
+nuget Microsoft.AspNetCore.TestHost
