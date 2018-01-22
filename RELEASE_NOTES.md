@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+## 0.12.0
+
+#### New features
+
+- Added `none` as a new option to the `--ViewEngine` parameter, which will create a Giraffe web application without any view engine (Web API only).
+- Added a new parameter called `--UsePaket` which will use Paket instead of NuGet as the package manager for the Giraffe web application.
+
+#### Enhancements
+
+- Updated the default Giraffe template to the latest version of Giraffe and made use of the new HTML attributes from the `GiraffeViewEngine`.
+
 ## 0.11.0
 
 #### New features

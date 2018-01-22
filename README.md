@@ -13,6 +13,7 @@ Giraffe web application template for the `dotnet new` command.
 - [Optional parameters](#optional-parameters)
     - [--ViewEngine](#--viewengine)
     - [--IncludeTests](#--includetests)
+    - [--UsePaket](#--usepaket)
 - [Updating the template](#updating-the-template)
 - [Nightly builds and NuGet feed](#nightly-builds-and-nuget-feed)
 - [More information](#more-information)
@@ -49,6 +50,7 @@ The Giraffe template supports three different view engines:
 - `giraffe` (default)
 - `razor`
 - `dotliquid`
+- `none`
 
 You can optionally specify the `--ViewEngine` parameter (short `-V`) to pass in one of the supported values:
 
@@ -78,6 +80,20 @@ This parameter can also be combined with other parameters:
 dotnet new giraffe --ViewEngine razor --IncludeTests
 ```
 
+### --UsePaket
+
+If you prefer [Paket](https://fsprojects.github.io/) for managing your project dependencies then you can specify `--UsePaket` (`-U` for short):
+
+```
+dotnet new giraffe --UsePaket
+```
+
+This will exclude the package references from the *fsproj* file and include the needed *paket.dependencies* and *paket.references* files.
+
+> If you do not run *build.bat* (or *build.sh* on **nix) before running `dotnet restore` you need to manually run `./.paket/paket.exe install` (or `mono ./.paket/paket.exe install`).
+
+See the [Paket documentation](https://fsprojects.github.io/) for more details.
+
 ## Updating the template
 
 Whenever there is a new version of the Giraffe template you can update it by re-running the [instructions from the installation](#installation).
@@ -106,4 +122,4 @@ For more information about Giraffe, how to set up a development environment, con
 
 ## License
 
-[Apache 2.0](https://raw.githubusercontent.com/giraffe-fsharp/Giraffe.DotLiquid/master/LICENSE)
+[Apache 2.0](https://raw.githubusercontent.com/giraffe-fsharp/giraffe-template/master/LICENSE)

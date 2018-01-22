@@ -1,0 +1,11 @@
+Microsoft.AspNetCore.Cors
+Microsoft.AspNetCore.Hosting
+Microsoft.AspNetCore.Diagnostics
+Microsoft.AspNetCore.Server.Kestrel
+Microsoft.AspNetCore.Server.IISIntegration
+Microsoft.AspNetCore.StaticFiles
+Microsoft.Extensions.Logging.Console
+Microsoft.Extensions.Logging.Debug
+Microsoft.AspNetCore.Authentication.Cookies
+Microsoft.Extensions.DependencyInjection
+Giraffe

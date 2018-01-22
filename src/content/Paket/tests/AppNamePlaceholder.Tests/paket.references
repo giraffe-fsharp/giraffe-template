@@ -1,0 +1,10 @@
+Microsoft.NET.Test.Sdk
+Microsoft.AspNetCore.Hosting
+Microsoft.AspNetCore.TestHost
+Microsoft.AspNetCore.Diagnostics
+Microsoft.AspNetCore.Server.Kestrel
+Microsoft.Extensions.Logging.Console
+Microsoft.Extensions.Logging.Debug
+Microsoft.Extensions.DependencyInjection
+xunit
+xunit.runner.visualstudio

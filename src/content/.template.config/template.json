@@ -25,10 +25,19 @@
         {
           "choice": "dotliquid",
           "description": "DotLiquid template engine"
+        },
+        {
+          "choice": "none",
+          "description": "No template engine (API only)"
         }
       ]
     },
     "IncludeTests": {
+      "type": "parameter",
+      "dataType": "bool",
+      "defaultValue": "false"
+    },
+    "UsePaket": {
       "type": "parameter",
       "dataType": "bool",
       "defaultValue": "false"
@@ -43,6 +52,10 @@
         {
           "condition": "(!IncludeTests)",
           "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+        },
+        {
+          "condition": "(!UsePaket)",
+          "exclude": [ "**/paket.*" ]
         }
       ]
     },
@@ -54,6 +67,10 @@
         {
           "condition": "(!IncludeTests)",
           "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+        },
+        {
+          "condition": "(!UsePaket)",
+          "exclude": [ "**/paket.*" ]
         }
       ]
     },
@@ -61,6 +78,32 @@
       "source": "./DotLiquid/",
       "target": "./",
       "condition": "(ViewEngine == \"dotliquid\")",
+      "modifiers": [
+        {
+          "condition": "(!IncludeTests)",
+          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+        },
+        {
+          "condition": "(!UsePaket)",
+          "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./Paket/",
+      "target": "./",
+      "condition": "(UsePaket)",
+      "modifiers": [
+        {
+          "condition": "(!IncludeTests)",
+          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+        }
+      ]
+    },
+    {
+      "source": "./None/",
+      "target": "./",
+      "condition": "(ViewEngine == \"none\")",
       "modifiers": [
         {
           "condition": "(!IncludeTests)",
