@@ -37,6 +37,12 @@ After the template has been installed you can create a new Giraffe web applicati
 dotnet new giraffe
 ```
 
+If you wish to use [Paket](https://fsprojects.github.io/Paket/) for your dependency management use the `--UsePaket` parameter when creating a new application:
+
+```
+dotnet new giraffe --UsePaket
+```
+
 The Giraffe template only supports the F# language at the moment.
 
 Further information and more help can be found by running `dotnet new giraffe --help` in your terminal.
