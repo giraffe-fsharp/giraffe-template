@@ -42,9 +42,12 @@ let configureCors (builder : CorsPolicyBuilder) =
            |> ignore
 
 let configureApp (app : IApplicationBuilder) =
-    app.UseCors(configureCors)
-       .UseGiraffeErrorHandler(errorHandler)
-       .UseGiraffe(webApp)
+    let env = app.ApplicationServices.GetService<IHostingEnvironment>()
+    (match env.IsDevelopment() with
+    | true  -> app.UseDeveloperExceptionPage()
+    | false -> app.UseGiraffeErrorHandler errorHandler)
+        .UseCors(configureCors)
+        .UseGiraffe(webApp)
 
 let configureServices (services : IServiceCollection) =
     let sp  = services.BuildServiceProvider()

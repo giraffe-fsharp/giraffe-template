@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+## 0.14.0
+
+#### New features
+
+- Added the ASP.NET Core default developer exception page when environment is development.
+
 ## 0.13.0
 
 #### New features
