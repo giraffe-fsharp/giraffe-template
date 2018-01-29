@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="web.config" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Views\*.cshtml;WebRoot\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
