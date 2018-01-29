@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+## 0.13.0
+
+#### New features
+
+- Added a default `web.config` file to all templates to support Azure deployments.
+
 ## 0.12.0
 
 #### New features
