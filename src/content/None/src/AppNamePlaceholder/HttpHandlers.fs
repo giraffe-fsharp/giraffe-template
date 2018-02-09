@@ -4,9 +4,8 @@ module HttpHandlers =
 
     open Microsoft.AspNetCore.Http
     open Giraffe
-    open Giraffe.HttpHandlers
     open AppNamePlaceholder.Models
-    
+
     let handleGetHello =
         fun (next : HttpFunc) (ctx : HttpContext) ->
             task {

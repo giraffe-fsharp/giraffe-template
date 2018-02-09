@@ -8,7 +8,6 @@ open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
-open GiraffeViewEngine
 
 // ---------------------------------
 // Models
@@ -23,25 +22,28 @@ type Message =
 // Views
 // ---------------------------------
 
-let layout (content: XmlNode list) =
-    html [] [
-        head [] [
-            title []  [ encodedText "AppNamePlaceholder" ]
-            link [ _rel  "stylesheet"
-                   _type "text/css"
-                   _href "/main.css" ]
+module Views =
+    open GiraffeViewEngine
+
+    let layout (content: XmlNode list) =
+        html [] [
+            head [] [
+                title []  [ encodedText "AppNamePlaceholder" ]
+                link [ _rel  "stylesheet"
+                       _type "text/css"
+                       _href "/main.css" ]
+            ]
+            body [] content
         ]
-        body [] content
-    ]
 
-let partial () =
-    h1 [] [ encodedText "AppNamePlaceholder" ]
+    let partial () =
+        h1 [] [ encodedText "AppNamePlaceholder" ]
 
-let indexView (model : Message) =
-    [
-        partial()
-        p [] [ encodedText model.Text ]
-    ] |> layout
+    let index (model : Message) =
+        [
+            partial()
+            p [] [ encodedText model.Text ]
+        ] |> layout
 
 // ---------------------------------
 // Web app
@@ -50,8 +52,8 @@ let indexView (model : Message) =
 let indexHandler (name : string) =
     let greetings = sprintf "Hello %s, from Giraffe!" name
     let model     = { Text = greetings }
-    let view      = indexView model
-    renderHtml view
+    let view      = Views.index model
+    htmlView view
 
 let webApp =
     choose [
@@ -90,7 +92,8 @@ let configureApp (app : IApplicationBuilder) =
         .UseGiraffe(webApp)
 
 let configureServices (services : IServiceCollection) =
-    services.AddCors() |> ignore
+    services.AddCors()    |> ignore
+    services.AddGiraffe() |> ignore
 
 let configureLogging (builder : ILoggingBuilder) =
     let filter (l : LogLevel) = l.Equals LogLevel.Error
