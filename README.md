@@ -47,6 +47,16 @@ The Giraffe template only supports the F# language at the moment.
 
 Further information and more help can be found by running `dotnet new giraffe --help` in your terminal.
 
+### Attention: .NET Core 2.1.4 SDK bug with dotnet new
+
+The [.NET Core 2.1.4 SDK has a bug](https://github.com/dotnet/templating/issues/1373) which breaks the current `dotnet new giraffe` command. Project templates which support only one (non default) language like the `giraffe-template` (which only supports F#) require an additional `-lang [language]` parameter when invoking `dotnet new`:
+
+```
+dotnet new giraffe -lang F#
+```
+
+This workaround is only temporary until a new version of the SDK will be released.
+
 ## Optional parameters
 
 ### --ViewEngine
