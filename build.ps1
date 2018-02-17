@@ -53,7 +53,7 @@ function Test-Version ($project)
     {
         Write-Host "Matching version against git tag..." -ForegroundColor Magenta
 
-        [string] $version = Get-NuspecVersion
+        [string] $version = Get-NuspecVersion $project
         [string] $gitTag  = $env:APPVEYOR_REPO_TAG_NAME
 
         Write-Host "Project version: $version" -ForegroundColor Cyan
