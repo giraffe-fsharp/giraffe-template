@@ -16,6 +16,7 @@ Giraffe web application template for the `dotnet new` command.
     - [--UsePaket](#--usepaket)
 - [Updating the template](#updating-the-template)
 - [Nightly builds and NuGet feed](#nightly-builds-and-nuget-feed)
+- [Contributing](#contributing)
 - [More information](#more-information)
 - [License](#license)
 
@@ -131,6 +132,92 @@ https://ci.appveyor.com/nuget/giraffe-template
 ```
 
 If you add this source to your NuGet CLI or project settings then you can pull unofficial NuGet packages for quick feature testing or urgent hot fixes.
+
+## Contributing
+
+Please use the `./build.ps1` PowerShell script to build and test the Giraffe template before submitting a PR.
+
+The `./build.ps1` PowerShell script comes with the following feature switches:
+
+| Switch | Description |
+| :----- | :---------- |
+| No switch | The default script without a switch will build all projects and run all tests before producing a Giraffe template NuGet package. | `./build.ps1` |
+| `InstallTemplate` | After successfully creating a new NuGet package for the Giraffe template the `-InstallTemplate` switch will uninstall any existing Giraffe templates before installing the freshly built template again. |
+| `CreatePermutations` | The `-CreatePermutations` switch does everything what the `-InstallTemplate` switch does plus it will create a new test project for each individual permutation of the Giraffe template options. All test projects will be created under the `.temp` folder. An existing folder of the same name will be cleared before creating all test projects. |
+| `TestPermutations` | The `-TestPermutations` switch does everything what the `-CreatePermutations` switch does plus it will build all test projects and execute their unit tests. This is the most comprehensive build and will likely take several minutes before completing. It is recommended to run this build before submitting a PR. |
+| `UpdatePaketDependencies` | The `-UpdatePaketDependencies` switch does everything what the `-TestPermutations` switch does plus it will update the Giraffe NuGet dependencies for all Paket enabled test projects. After updating the Giraffe dependency it will automatically copy the upated `paket.lock` file into the correct template of the `./src` folder. It is recommended to run this build when changing any dependencies for one or many templates. |
+
+### Examples
+
+#### Default:
+
+Windows:
+
+```powershell
+> ./build.ps1
+```
+
+MacOS and Linux:
+
+```powershell
+$ pwsh ./build.ps1
+```
+
+#### Installing the new template:
+
+Windows:
+
+```powershell
+> ./build.ps1 -InstallTemplate
+```
+
+MacOS and Linux:
+
+```powershell
+$ pwsh ./build.ps1 -InstallTemplate
+```
+
+#### Creating a test project for each permutation:
+
+Windows:
+
+```powershell
+> ./build.ps1 -CreatePermutations
+```
+
+MacOS and Linux:
+
+```powershell
+$ pwsh ./build.ps1 -CreatePermutations
+```
+
+#### Creating and testing all test projects for all permutations:
+
+Windows:
+
+```powershell
+> ./build.ps1 -TestPermutations
+```
+
+MacOS and Linux:
+
+```powershell
+$ pwsh ./build.ps1 -TestPermutations
+```
+
+#### Creating and testing all permutations and updating the `paket.lock` file afterwards:
+
+Windows:
+
+```powershell
+> ./build.ps1 -UpdatePaketDependencies
+```
+
+MacOS and Linux:
+
+```powershell
+$ pwsh ./build.ps1 -UpdatePaketDependencies
+```
 
 ## More information
 
