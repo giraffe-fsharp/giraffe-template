@@ -6,7 +6,7 @@ init:
   - git config --global core.autocrlf true
 build: off
 build_script:
-  - ps: .\build.ps1
+  - ps: .\build.ps1 -TestAllPermutations
 test: off
 artifacts:
   - path: '**\giraffe-template.*.nupkg'
