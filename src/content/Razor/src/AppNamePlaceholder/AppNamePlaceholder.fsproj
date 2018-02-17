@@ -20,8 +20,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.*" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.0.*" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.*" />
-    <PackageReference Include="Giraffe" Version="1.0.*" />
-    <PackageReference Include="Giraffe.Razor" Version="1.0.*" />
+    <PackageReference Include="Giraffe" Version="1.1.*" />
+    <PackageReference Include="Giraffe.Razor" Version="1.1.*" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(UsePaket)' == false OR '$(UsePaket)' == ''">

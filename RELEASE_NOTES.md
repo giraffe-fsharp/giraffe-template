@@ -1,6 +1,10 @@
 Release Notes
 =============
 
+## 0.16.0
+
+Updated all templates to use the latest `Giraffe 1.1.*` release.
+
 ## 0.15.0
 
 Updated all templates to use the latest `Giraffe 1.0.0` release.
