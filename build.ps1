@@ -5,8 +5,9 @@
 param
 (
     [switch] $InstallTemplate,
-    [switch] $CreateAllPermutations,
-    [switch] $TestAllPermutations
+    [switch] $CreatePermutations,
+    [switch] $TestPermutations,
+    [switch] $UpdatePaketDependencies
 )
 
 $ErrorActionPreference = "Stop"
@@ -152,7 +153,7 @@ Remove-BuildArtifacts
 Write-Host "Building NuGet package..." -ForegroundColor Magenta
 Invoke-Cmd "nuget pack src/giraffe-template.nuspec"
 
-if ($TestAllPermutations.IsPresent -or $CreateAllPermutations.IsPresent -or $InstallTemplate.IsPresent)
+if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $CreatePermutations.IsPresent -or $InstallTemplate.IsPresent)
 {
     # Uninstalling Giraffe tempalte
     Write-Host "Uninstalling existing Giraffe template..." -ForegroundColor Magenta
@@ -168,7 +169,7 @@ if ($TestAllPermutations.IsPresent -or $CreateAllPermutations.IsPresent -or $Ins
     Write-Host "Installing newly built Giraffe tempalte..." -ForegroundColor Magenta
     Invoke-Cmd "dotnet new -i $nupkgPath"
 
-    if ($TestAllPermutations.IsPresent -or $CreateAllPermutations.IsPresent)
+    if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $CreatePermutations.IsPresent)
     {
         # Creating new .temp folder for permutation tests
         Write-Host "Creating new .temp folder for template tests..." -ForegroundColor Magenta
@@ -192,14 +193,14 @@ if ($TestAllPermutations.IsPresent -or $CreateAllPermutations.IsPresent -or $Ins
             Invoke-Cmd ("dotnet new giraffe -lang F# -I -U -V $engine -o $tempFolder/$viewEngine" + "TestsPaketApp")
         }
 
-        if ($TestAllPermutations.IsPresent)
+        if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent)
         {
             # Building and testing all permutations
             Write-Host "Building and testing all permutations of the giraffe-tempalte..." -ForegroundColor Magenta
             $isWin = Test-IsWindows
 
             Get-ChildItem ".temp" -Directory | ForEach-Object {
-                $name = $_.DirectoryName
+                $name = $_.Name
                 Write-Host "Running build script for $name..." -ForegroundColor Magenta
                 Push-Location $_.FullName
                 if ($isWin) {
@@ -208,6 +209,20 @@ if ($TestAllPermutations.IsPresent -or $CreateAllPermutations.IsPresent -or $Ins
                 else {
                     Invoke-Cmd ("sh ./build.sh")
                 }
+
+                if ($UpdatePaketDependencies.IsPresent -and $name.Contains("Paket"))
+                {
+                    if ($isWin) {
+                        Invoke-Cmd (".paket/paket.exe update Giraffe")
+                    }
+                    else {
+                        Invoke-Cmd ("mono .paket/paket.exe update Giraffe")
+                    }
+
+                    $viewEngine = $name.Replace("App", "").Replace("Paket", "").Replace("Tests", "")
+                    Copy-Item -Path "paket.lock" -Destination "../../src/content/$viewEngine/paket.lock" -Force
+                }
+
                 Pop-Location
             }
         }
