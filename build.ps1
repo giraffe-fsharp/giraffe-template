@@ -85,7 +85,7 @@ function Remove-BuildArtifacts
 
     Get-ChildItem -Include "bin", "obj", ".paket", "paket-files" -Exclude "Paket/.paket" -Recurse -Attributes Directory,Hidden `
     | ForEach-Object {
-        if (!($_.FullName.Contains("src/content/Paket/")))
+        if (!($_.FullName.Contains("src/content/Paket/") -or $_.FullName.Contains("src\content\Paket\")))
         {
             Write-Host "Removing folder $_" -ForegroundColor DarkGray
             Remove-Item $_ -Recurse -Force }
@@ -152,7 +152,7 @@ Remove-BuildArtifacts
 Write-Host "Building NuGet package..." -ForegroundColor Magenta
 Invoke-Cmd "nuget pack src/giraffe-template.nuspec"
 
-if ($env:APPVEYOR_REPO_TAG -eq $false -and ($TestAllPermutations.IsPresent -or $CreateAllPermutations.IsPresent -or $InstallTemplate.IsPresent))
+if ($TestAllPermutations.IsPresent -or $CreateAllPermutations.IsPresent -or $InstallTemplate.IsPresent)
 {
     # Uninstalling Giraffe tempalte
     Write-Host "Uninstalling existing Giraffe template..." -ForegroundColor Magenta
