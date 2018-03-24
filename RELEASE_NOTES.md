@@ -1,6 +1,10 @@
 Release Notes
 =============
 
+## 0.17.0
+
+Updated paket.exe to latest Paket release (fixes #12).
+
 ## 0.16.0
 
 Updated all templates to use the latest `Giraffe 1.1.*` release.
