@@ -55,7 +55,7 @@ Affected SDKs:
 - .NET SDK 2.1.X where X < 300
 - This was fixed in SDK versions 2.1.300+
 - Why? It's a bug in the templating engine: (https://github.com/dotnet/templating/issues/1373)
-- This affects all templating engines which support only one language (like Giraffe which only supports F#)
+- This affects all templates which support only one language (like Giraffe which only supports F#)
 - The behavior is such that when you run `dotnet new [template]` you may not get any errors and it will just output the `--help` text for the template & CLI.
 
 How can I know what version of the SDK I use?
