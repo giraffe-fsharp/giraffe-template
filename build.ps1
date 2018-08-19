@@ -203,6 +203,12 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
                 $name = $_.Name
                 Write-Host "Running build script for $name..." -ForegroundColor Magenta
                 Push-Location $_.FullName
+
+                if ($UpdatePaketDependencies.IsPresent -and $name.Contains("Paket"))
+                {
+                    Remove-Item -Path "paket.lock" -Force
+                }
+
                 if ($isWin) {
                     Invoke-Cmd ("./build.bat")
                 }
@@ -212,13 +218,6 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
 
                 if ($UpdatePaketDependencies.IsPresent -and $name.Contains("Paket"))
                 {
-                    if ($isWin) {
-                        Invoke-Cmd (".paket/paket.exe update Giraffe")
-                    }
-                    else {
-                        Invoke-Cmd ("mono .paket/paket.exe update Giraffe")
-                    }
-
                     $viewEngine = $name.Replace("App", "").Replace("Paket", "").Replace("Tests", "")
                     Copy-Item -Path "paket.lock" -Destination "../../src/content/$viewEngine/paket.lock" -Force
                 }
