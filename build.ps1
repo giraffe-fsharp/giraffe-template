@@ -227,3 +227,5 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
         }
     }
 }
+
+Write-Host "Build script completed successfully!" -ForegroundColor Green
