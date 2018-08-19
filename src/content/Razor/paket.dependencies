@@ -1,21 +1,10 @@
 storage: none
 source https://api.nuget.org/v3/index.json
 
-clitool dotnet-xunit
-clitool Microsoft.DotNet.Watcher.Tools
-nuget Microsoft.AspNetCore.Cors
-nuget Microsoft.AspNetCore.Hosting
-nuget Microsoft.AspNetCore.Diagnostics
-nuget Microsoft.AspNetCore.Server.Kestrel
-nuget Microsoft.AspNetCore.Server.IISIntegration
-nuget Microsoft.AspNetCore.StaticFiles
-nuget Microsoft.Extensions.Logging.Console
-nuget Microsoft.Extensions.Logging.Debug
-nuget Microsoft.AspNetCore.Authentication.Cookies
-nuget Microsoft.Extensions.DependencyInjection
+nuget Microsoft.AspNetCore.App
 nuget Giraffe
+nuget Giraffe.Razor
 nuget Microsoft.NET.Test.Sdk
+nuget Microsoft.AspNetCore.TestHost
 nuget xunit
 nuget xunit.runner.visualstudio
-nuget Microsoft.AspNetCore.TestHost
-nuget Giraffe.Razor
