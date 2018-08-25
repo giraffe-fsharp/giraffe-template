@@ -46,6 +46,8 @@ dotnet new giraffe --UsePaket
 
 The Giraffe template only supports the F# language at the moment.
 
+Please be also aware that you cannot name your project "giraffe" (`dotnet new giraffe -o giraffe`) as this will lead the .NET Core CLI to fail with the error "NU1108-Cycle detected" when trying to resolve the project's dependencies.
+
 Further information and more help can be found by running `dotnet new giraffe --help` in your terminal.
 
 ### ATTENTION: dotnet new bug in some versions of .NET Core 2.0
@@ -69,7 +71,7 @@ Short term fix:
 Just specify the language when invoking, like
 
 ```
-dotnet new giraffe -lang F# 
+dotnet new giraffe -lang F#
 ```
 
 Long term fix:
