@@ -90,20 +90,24 @@
       ]
     },
     {
-      "source": "./Paket/",
+      "source": "./None/",
       "target": "./",
-      "condition": "(UsePaket)",
+      "condition": "(ViewEngine == \"none\")",
       "modifiers": [
         {
           "condition": "(!IncludeTests)",
           "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+        },
+        {
+          "condition": "(!UsePaket)",
+          "exclude": [ "**/paket.*" ]
         }
       ]
     },
     {
-      "source": "./None/",
+      "source": "./Paket/",
       "target": "./",
-      "condition": "(ViewEngine == \"none\")",
+      "condition": "(UsePaket)",
       "modifiers": [
         {
           "condition": "(!IncludeTests)",
