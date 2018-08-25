@@ -151,6 +151,12 @@ https://ci.appveyor.com/nuget/giraffe-template
 
 If you add this source to your NuGet CLI or project settings then you can pull unofficial NuGet packages for quick feature testing or urgent hot fixes.
 
+## Using Visual Studio
+
+The basic giraffe template doesn't work with `IIS Express` which may be the default IIS used by Visual Studio 2017 to build & publish your application. Make sure to change your drop-down (the top of your window, next to the other Configuration Manager settings) IIS setting to be the name of your project and *NOT* `IIS Express`. Example:
+
+![](https://user-images.githubusercontent.com/3818802/39714515-5535b446-51f8-11e8-9b76-9c89a3e70eea.png)
+
 ## Contributing
 
 Please use the `./build.ps1` PowerShell script to build and test the Giraffe template before submitting a PR.

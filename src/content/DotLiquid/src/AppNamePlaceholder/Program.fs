@@ -51,7 +51,8 @@ let configureApp (app : IApplicationBuilder) =
     let env = app.ApplicationServices.GetService<IHostingEnvironment>()
     (match env.IsDevelopment() with
     | true  -> app.UseDeveloperExceptionPage()
-    | false -> app.UseGiraffeErrorHandler errorHandler)
+    | false -> app.UseGiraffeErrorHandler(errorHandler))
+        .UseHttpsRedirection()
         .UseCors(configureCors)
         .UseStaticFiles()
         .UseGiraffe(webApp)

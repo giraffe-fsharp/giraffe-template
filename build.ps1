@@ -10,99 +10,29 @@ param
     [switch] $UpdatePaketDependencies
 )
 
-$ErrorActionPreference = "Stop"
-
-# ----------------------------------------------
-# Helper functions
-# ----------------------------------------------
-
-function Test-IsWindows
-{
-    [environment]::OSVersion.Platform -ne "Unix"
-}
-
-function Invoke-UnsafeCmd ($cmd)
-{
-    Write-Host $cmd -ForegroundColor DarkCyan
-    if (Test-IsWindows) { $cmd = "cmd.exe /C $cmd" }
-    Invoke-Expression -Command $cmd
-}
-
-function Invoke-Cmd ($cmd)
-{
-    Invoke-UnsafeCmd ($cmd)
-    if ($LastExitCode -ne 0) { Write-Error "An error occured when executing '$cmd'."; return }
-}
-
-function dotnet-restore ($project, $argv) { Invoke-Cmd "dotnet restore $project $argv" }
-function dotnet-build   ($project, $argv) { Invoke-Cmd "dotnet build $project $argv" }
-function dotnet-run     ($project, $argv) { Invoke-Cmd "dotnet run --project $project $argv" }
-function dotnet-test    ($project, $argv) { Invoke-Cmd "dotnet test $project $argv" }
-function dotnet-pack    ($project, $argv) { Invoke-Cmd "dotnet pack $project $argv" }
-
-function Get-NuspecVersion ($project)
-{
-    [xml] $xml = Get-Content $project
-    [string] $version = $xml.package.metadata.version
-    $version
-}
-
-function Test-Version ($project)
-{
-    if ($env:APPVEYOR_REPO_TAG -eq $true)
-    {
-        Write-Host "Matching version against git tag..." -ForegroundColor Magenta
-
-        [string] $version = Get-NuspecVersion $project
-        [string] $gitTag  = $env:APPVEYOR_REPO_TAG_NAME
-
-        Write-Host "Project version: $version" -ForegroundColor Cyan
-        Write-Host "Git tag version: $gitTag" -ForegroundColor Cyan
-
-        if (!$gitTag.EndsWith($version))
-        {
-            Write-Error "Version and Git tag do not match."
-        }
-    }
-}
-
-function Update-AppVeyorBuildVersion ($project)
-{
-    if ($env:APPVEYOR -eq $true)
-    {
-        Write-Host "Updating AppVeyor build version..." -ForegroundColor Magenta
-
-        [xml]$xml = Get-Content $project
-        $version = $xml.package.metadata.version
-        $buildVersion = "$version-$env:APPVEYOR_BUILD_NUMBER"
-        Write-Host "Setting AppVeyor build version to $buildVersion."
-        Update-AppveyorBuild -Version $buildVersion
-    }
-}
-
-function Remove-BuildArtifacts
-{
-    Write-Host "Deleting build artifacts..." -ForegroundColor Magenta
-
-    Get-ChildItem -Include "bin", "obj", ".paket", "paket-files" -Exclude "Paket/.paket" -Recurse -Attributes Directory,Hidden `
-    | ForEach-Object {
-        if (!($_.FullName.Contains("src/content/Paket/") -or $_.FullName.Contains("src\content\Paket\")))
-        {
-            Write-Host "Removing folder $_" -ForegroundColor DarkGray
-            Remove-Item $_ -Recurse -Force }
-        }
-    Remove-Item -Path "giraffe-template.*.nupkg" -Force
-}
-
 # ----------------------------------------------
 # Main
 # ----------------------------------------------
 
-$nuspec = ".\src\giraffe-template.nuspec"
+$ErrorActionPreference = "Stop"
+
+Import-module "$PSScriptRoot/.psscripts/build-functions.ps1" -Force
+
+Write-BuildHeader "Starting giraffe-template build script"
+
+$nuspec = "./src/giraffe-template.nuspec"
 
 Update-AppVeyorBuildVersion $nuspec
-Test-Version $nuspec
-Remove-BuildArtifacts
+
+if (Test-IsAppVeyorBuildTriggeredByGitTag)
+{
+    $gitTag = Get-AppVeyorGitTag
+    $nuspecVersion = Get-NuspecVersion $nuspec
+    Test-CompareVersions $nuspecVersion $gitTag
+}
+
+Write-DotnetCoreVersions
+Remove-OldBuildArtifacts
 
 # Test Giraffe template
 Write-Host "Building and testing Giraffe tempalte..." -ForegroundColor Magenta
@@ -149,7 +79,7 @@ dotnet-build   $noneTests
 dotnet-test    $noneTests
 
 # Create template NuGet package
-Remove-BuildArtifacts
+Remove-OldBuildArtifacts
 Write-Host "Building NuGet package..." -ForegroundColor Magenta
 Invoke-Cmd "nuget pack src/giraffe-template.nuspec"
 
@@ -203,6 +133,12 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
                 $name = $_.Name
                 Write-Host "Running build script for $name..." -ForegroundColor Magenta
                 Push-Location $_.FullName
+
+                if ($UpdatePaketDependencies.IsPresent -and $name.Contains("Paket"))
+                {
+                    Remove-Item -Path "paket.lock" -Force
+                }
+
                 if ($isWin) {
                     Invoke-Cmd ("./build.bat")
                 }
@@ -212,13 +148,6 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
 
                 if ($UpdatePaketDependencies.IsPresent -and $name.Contains("Paket"))
                 {
-                    if ($isWin) {
-                        Invoke-Cmd (".paket/paket.exe update Giraffe")
-                    }
-                    else {
-                        Invoke-Cmd ("mono .paket/paket.exe update Giraffe")
-                    }
-
                     $viewEngine = $name.Replace("App", "").Replace("Paket", "").Replace("Tests", "")
                     Copy-Item -Path "paket.lock" -Destination "../../src/content/$viewEngine/paket.lock" -Force
                 }
@@ -228,3 +157,5 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
         }
     }
 }
+
+Write-SuccessFooter "The giraffe-template has been successfully built!"

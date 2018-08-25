@@ -1,20 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <IsPackable>false</IsPackable>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(UsePaket)' == false OR '$(UsePaket)' == ''">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.*" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.*" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.*" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.*" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.0.*" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.*" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.*" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.*" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.*" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.*" />
-    <PackageReference Include="xunit" Version="2.3.*" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.*" />
+    <PackageReference Include="xunit" Version="2.4.*" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +17,6 @@
 
   <ItemGroup>
     <Compile Include="Tests.fs" />
-    <Compile Include="Program.fs" />
   </ItemGroup>
   <Import Condition="'$(UsePaket)' == true" Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+## 0.18.0
+
+- Updated all templates to latest Giraffe version
+- Updates all templates to .NET Core 2.1 apps
+- Updated paket to latest version
+- Fixed minor bugs with the generation of the `None` view engine template
+- Fixed line ending issue in *.sh files
+- Added post action to set read permissions to the build.sh file
+
 ## 0.17.0
 
 Updated paket.exe to latest Paket release (fixes #12).

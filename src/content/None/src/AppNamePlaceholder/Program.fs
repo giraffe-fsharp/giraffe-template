@@ -46,6 +46,7 @@ let configureApp (app : IApplicationBuilder) =
     (match env.IsDevelopment() with
     | true  -> app.UseDeveloperExceptionPage()
     | false -> app.UseGiraffeErrorHandler errorHandler)
+        .UseHttpsRedirection()
         .UseCors(configureCors)
         .UseGiraffe(webApp)
 
