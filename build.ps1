@@ -16,13 +16,9 @@ param
 
 $ErrorActionPreference = "Stop"
 
-Write-Host ""
-Write-Host "-----------------------------------------" -ForegroundColor DarkYellow
-Write-Host " Starting giraffe-template build script  " -ForegroundColor DarkYellow
-Write-Host "-----------------------------------------" -ForegroundColor DarkYellow
-Write-Host ""
-
 Import-module "$PSScriptRoot/.psscripts/build-functions.ps1" -Force
+
+Write-BuildHeader "Starting giraffe-template build script"
 
 $nuspec = "./src/giraffe-template.nuspec"
 
@@ -162,8 +158,4 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
     }
 }
 
-Write-Host ""
-Write-Host " .~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~. " -ForegroundColor Green
-Write-Host "   giraffe-template build completed successfully!  " -ForegroundColor Green
-Write-Host " '~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~' " -ForegroundColor Green
-Write-Host ""
+Write-SuccessFooter "The giraffe-template has been successfully built!"

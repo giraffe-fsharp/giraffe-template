@@ -293,3 +293,33 @@ function Update-AppVeyorBuildVersion ($projFile)
         Update-AppveyorBuild -Version $buildVersion
     }
 }
+
+# ----------------------------------------------
+# Host Writing functions
+# ----------------------------------------------
+
+function Write-BuildHeader ($projectTitle)
+{
+    $header = "  $projectTitle  ";
+    $bar = ""
+    for ($i = 0; $i -lt $header.Length; $i++) { $bar += "-" }
+
+    Write-Host ""
+    Write-Host $bar -ForegroundColor DarkYellow
+    Write-Host $header -ForegroundColor DarkYellow
+    Write-Host $bar -ForegroundColor DarkYellow
+    Write-Host ""
+}
+
+function Write-SuccessFooter ($msg)
+{
+    $footer = "  $msg  ";
+    $bar = ""
+    for ($i = 0; $i -lt $footer.Length; $i++) { $bar += "-" }
+
+    Write-Host ""
+    Write-Host $bar -ForegroundColor Green
+    Write-Host $footer -ForegroundColor Green
+    Write-Host $bar -ForegroundColor Green
+    Write-Host ""
+}
