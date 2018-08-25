@@ -36,7 +36,7 @@ if (Test-IsAppVeyorBuildTriggeredByGitTag)
 }
 
 Write-DotnetCoreVersions
-Remove-BuildArtifacts
+Remove-OldBuildArtifacts
 
 # Test Giraffe template
 Write-Host "Building and testing Giraffe tempalte..." -ForegroundColor Magenta
@@ -83,7 +83,7 @@ dotnet-build   $noneTests
 dotnet-test    $noneTests
 
 # Create template NuGet package
-Remove-BuildArtifacts
+Remove-OldBuildArtifacts
 Write-Host "Building NuGet package..." -ForegroundColor Magenta
 Invoke-Cmd "nuget pack src/giraffe-template.nuspec"
 

@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(UsePaket)' == false OR '$(UsePaket)' == ''">
@@ -18,7 +17,6 @@
 
   <ItemGroup>
     <Compile Include="Tests.fs" />
-    <Compile Include="Program.fs" />
   </ItemGroup>
   <Import Condition="'$(UsePaket)' == true" Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

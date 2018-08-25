@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(UsePaket)' == false OR '$(UsePaket)' == ''">
@@ -18,22 +17,6 @@
 
   <ItemGroup>
     <Compile Include="Tests.fs" />
-    <Compile Include="Program.fs" />
   </ItemGroup>
-
-  <!--
-    This is a required workaround for unit test projects for Razor applications:
-    https://github.com/aspnet/Razor/issues/1212
-
-    Work around https://github.com/NuGet/Home/issues/4412. MVC uses DependencyContext.Load() which looks next to a .dll
-    for a .deps.json. Information isn't available elsewhere. Need the .deps.json file for all web site applications.
-  -->
-  <Target Name="CopyDepsFiles" AfterTargets="Build" Condition="'$(TargetFramework)'!=''">
-    <ItemGroup>
-      <DepsFilePaths Include="$([System.IO.Path]::ChangeExtension('%(_ResolvedProjectReferencePaths.FullPath)', '.deps.json'))" />
-    </ItemGroup>
-    <Copy SourceFiles="%(DepsFilePaths.FullPath)"
-          DestinationFolder="$(OutputPath)"
-          Condition="Exists('%(DepsFilePaths.FullPath)')" />
-  </Target>
+  <Import Condition="'$(UsePaket)' == true" Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

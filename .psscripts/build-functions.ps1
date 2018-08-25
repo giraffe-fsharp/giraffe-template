@@ -17,6 +17,20 @@ function Test-IsWindows
 
 function Invoke-UnsafeCmd ($cmd)
 {
+    <#
+        .DESCRIPTION
+        Runs a shell or bash command, but doesn't throw an error if the command didn't exit with 0.
+
+        .PARAMETER cmd
+        The command to be executed.
+
+        .EXAMPLE
+        Invoke-Cmd -Cmd "dotnet new classlib"
+
+        .NOTES
+        Use this PowerShell command to execute any CLI commands which might not exit with 0 on a success.
+    #>
+
     Write-Host $cmd -ForegroundColor DarkCyan
     if (Test-IsWindows) { $cmd = "cmd.exe /C $cmd" }
     Invoke-Expression -Command $cmd
@@ -59,6 +73,14 @@ function Remove-OldBuildArtifacts
 
 function Get-ProjectVersion ($projFile)
 {
+    <#
+        .DESCRIPTION
+        Gets the <Version> value of a .NET Core *.csproj, *.fsproj or *.vbproj file.
+
+        .PARAMETER cmd
+        The relative or absolute path to the .NET Core project file.
+    #>
+
     [xml]$xml = Get-Content $projFile
     [string] $version = $xml.Project.PropertyGroup.Version
     $version
@@ -66,6 +88,14 @@ function Get-ProjectVersion ($projFile)
 
 function Get-NuspecVersion ($nuspecFile)
 {
+    <#
+        .DESCRIPTION
+        Gets the <version> value of a .nuspec file.
+
+        .PARAMETER cmd
+        The relative or absolute path to the .nuspec file.
+    #>
+
     [xml] $xml = Get-Content $nuspecFile
     [string] $version = $xml.package.metadata.version
     $version
@@ -89,6 +119,7 @@ function Test-CompareVersions ($version, [string]$gitTag)
 
 function dotnet-info                      { Invoke-Cmd "dotnet --info" }
 function dotnet-version                   { Invoke-Cmd "dotnet --version" }
+function dotnet-restore ($project, $argv) { Invoke-Cmd "dotnet restore $project $argv" }
 function dotnet-build   ($project, $argv) { Invoke-Cmd "dotnet build $project $argv" }
 function dotnet-run     ($project, $argv) { Invoke-Cmd "dotnet run --project $project $argv" }
 function dotnet-pack    ($project, $argv) { Invoke-Cmd "dotnet pack $project $argv" }
