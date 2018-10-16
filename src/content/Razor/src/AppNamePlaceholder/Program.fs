@@ -18,7 +18,7 @@ open AppNamePlaceholder.Models
 let indexHandler (name : string) =
     let greetings = sprintf "Hello %s, from Giraffe!" name
     let model     = { Text = greetings }
-    razorHtmlView "Index" model
+    razorHtmlView "Index" (Some model) None
 
 let webApp =
     choose [
