@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+## 0.19.0
+
+- Updated Giraffe to version 3.2.x
+- Updated Giraffe.Razor to version 2.0.x
+- Added TaskBuilder.fs as dependency to all templates
+
 ## 0.18.0
 
 - Updated all templates to latest Giraffe version

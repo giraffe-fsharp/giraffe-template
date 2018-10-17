@@ -15,6 +15,20 @@ function Test-IsWindows
     [environment]::OSVersion.Platform -ne "Unix"
 }
 
+function Get-UbuntuVersion
+{
+    <#
+        .DESCRIPTION
+        Gets the Ubuntu version.
+
+        .EXAMPLE
+        $ubuntuVersion = Get-UbuntuVersion
+    #>
+
+    $version = Invoke-Cmd "lsb_release -r -s"
+    return $version
+}
+
 function Invoke-UnsafeCmd ($cmd)
 {
     <#
@@ -235,7 +249,10 @@ function Get-NetCoreSdkFromWeb ($version)
         The SDK version which should be downloaded.
     #>
 
-    $os = if (Test-IsWindows) { "windows" } else { "linux" }
+    Write-Host "Downloading .NET Core SDK $version..."
+
+    $os  = if (Test-IsWindows) { "windows" } else { "linux" }
+    $ext = if (Test-IsWindows) { ".zip" } else { ".tar.gz" }
 
     $response = Invoke-WebRequest `
                     -Uri "https://www.microsoft.com/net/download/thank-you/dotnet-sdk-$version-$os-x64-binaries" `
@@ -247,13 +264,17 @@ function Get-NetCoreSdkFromWeb ($version)
             | Where-Object { $_.onclick -eq "recordManualDownload()" } `
             | Select-Object -Expand href
 
-    $tempFile  = [System.IO.Path]::GetTempFileName()
+    $tempFile  = [System.IO.Path]::GetTempFileName() + $ext
+
     $webClient = New-Object System.Net.WebClient
     $webClient.DownloadFile($downloadLink, $tempFile)
+
+    Write-Host "Download finished. SDK has been saved to '$tempFile'."
+
     return $tempFile
 }
 
-function Install-NetCoreSdk ($sdkZipPath)
+function Install-NetCoreSdkFromArchive ($sdkArchivePath)
 {
     <#
         .DESCRIPTION
@@ -263,13 +284,35 @@ function Install-NetCoreSdk ($sdkZipPath)
         The zip archive which contains the .NET Core SDK.
     #>
 
+    if (Test-IsWindows)
+    {
+        $env:DOTNET_INSTALL_DIR = [System.IO.Path]::Combine($pwd, ".dotnetsdk")
+        New-Item $env:DOTNET_INSTALL_DIR -ItemType Directory -Force | Out-Null
+        Write-Host "Created folder '$env:DOTNET_INSTALL_DIR'."
+        Expand-Archive -LiteralPath $sdkArchivePath -DestinationPath $env:DOTNET_INSTALL_DIR -Force
+        Write-Host "Extracted '$sdkArchivePath' to folder '$env:DOTNET_INSTALL_DIR'."
+        $env:Path = "$env:DOTNET_INSTALL_DIR;$env:Path"
+        Write-Host "Added '$env:DOTNET_INSTALL_DIR' to the environment variables."
+    }
+    else
+    {
+        $dotnetInstallDir = "$env:HOME/.dotnetsdk"
+        Invoke-Cmd "mkdir -p $dotnetInstallDir"
+        Write-Host "Created folder '$dotnetInstallDir'."
+        Invoke-Cmd "tar -xf $sdkArchivePath -C $dotnetInstallDir"
+        Write-Host "Extracted '$sdkArchivePath' to folder '$dotnetInstallDir'."
+        $env:PATH = "$env:PATH:$dotnetInstallDir"
+        Write-Host "Added '$dotnetInstallDir' to the environment variables."
+    }
+}
 
-    $env:DOTNET_INSTALL_DIR = "$pwd\.dotnetsdk"
-    New-Item $env:DOTNET_INSTALL_DIR -ItemType Directory -Force
-
-    Add-Type -AssemblyName System.IO.Compression.FileSystem;
-    [System.IO.Compression.ZipFile]::ExtractToDirectory($sdkZipPath, $env:DOTNET_INSTALL_DIR)
-    $env:Path = "$env:DOTNET_INSTALL_DIR;$env:Path"
+function Install-NetCoreSdkForUbuntu ($ubuntuVersion, $sdkVersion)
+{
+    Invoke-Cmd "wget -q https://packages.microsoft.com/config/ubuntu/$ubuntuVersion/packages-microsoft-prod.deb"
+    Invoke-Cmd "sudo dpkg -i packages-microsoft-prod.deb"
+    Invoke-Cmd "sudo apt-get install apt-transport-https"
+    Invoke-Cmd "sudo apt-get update"
+    Invoke-Cmd "sudo apt-get -y install dotnet-sdk-$sdkVersion"
 }
 
 # ----------------------------------------------
@@ -280,14 +323,11 @@ function Test-IsAppVeyorBuild                  { return ($env:APPVEYOR -eq $true
 function Test-IsAppVeyorBuildTriggeredByGitTag { return ($env:APPVEYOR_REPO_TAG -eq $true) }
 function Get-AppVeyorGitTag                    { return $env:APPVEYOR_REPO_TAG_NAME }
 
-function Update-AppVeyorBuildVersion ($projFile)
+function Update-AppVeyorBuildVersion ($version)
 {
     if (Test-IsAppVeyorBuild)
     {
         Write-Host "Updating AppVeyor build version..." -ForegroundColor Magenta
-
-        [xml]$xml     = Get-Content $projFile
-        $version      = $xml.Project.PropertyGroup.Version
         $buildVersion = "$version-$env:APPVEYOR_BUILD_NUMBER"
         Write-Host "Setting AppVeyor build version to $buildVersion."
         Update-AppveyorBuild -Version $buildVersion

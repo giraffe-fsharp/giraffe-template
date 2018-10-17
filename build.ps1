@@ -21,14 +21,14 @@ Import-module "$PSScriptRoot/.psscripts/build-functions.ps1" -Force
 Write-BuildHeader "Starting giraffe-template build script"
 
 $nuspec = "./src/giraffe-template.nuspec"
+$version = Get-NuspecVersion $nuspec
 
-Update-AppVeyorBuildVersion $nuspec
+Update-AppVeyorBuildVersion $version
 
 if (Test-IsAppVeyorBuildTriggeredByGitTag)
 {
     $gitTag = Get-AppVeyorGitTag
-    $nuspecVersion = Get-NuspecVersion $nuspec
-    Test-CompareVersions $nuspecVersion $gitTag
+    Test-CompareVersions $version $gitTag
 }
 
 Write-DotnetCoreVersions
@@ -91,7 +91,6 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
     $giraffeInstallation
     if ($giraffeInstallation.Length -lt 6) { Invoke-Cmd "dotnet new -u giraffe-template" }
 
-    $version   = Get-NuspecVersion $nuspec
     $nupkg     = Get-ChildItem "./giraffe-template.$version.nupkg"
     $nupkgPath = $nupkg.FullName
 
