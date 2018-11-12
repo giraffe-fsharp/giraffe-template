@@ -89,7 +89,11 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
     Write-Host "Uninstalling existing Giraffe template..." -ForegroundColor Magenta
     $giraffeInstallation = Invoke-UnsafeCmd "dotnet new giraffe --list"
     $giraffeInstallation
-    if ($giraffeInstallation.Length -lt 6) { Invoke-Cmd "dotnet new -u giraffe-template" }
+    if ($giraffeInstallation[$giraffeInstallation.Length - 2].StartsWith("Giraffe Web App"))
+    {
+        Invoke-Cmd "dotnet new -u giraffe-template"
+    }
+    # if ($giraffeInstallation.Length -lt 6) { Invoke-Cmd "dotnet new -u giraffe-template" }
 
     $nupkg     = Get-ChildItem "./giraffe-template.$version.nupkg"
     $nupkgPath = $nupkg.FullName
