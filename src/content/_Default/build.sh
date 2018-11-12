@@ -1,3 +1,4 @@
+#!/bin/sh
 #if (UsePaket)
 if [ ! -e "paket.lock" ]
 then
