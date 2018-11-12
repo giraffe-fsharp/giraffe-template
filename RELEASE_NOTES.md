@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+## 0.20.0
+
+- Added shebang and fixed shellcheck warnings
+- Updated Giraffe to version 3.4.x
+- Updated TestHost to version 2.1.x for test projects
+
 ## 0.19.0
 
 - Updated Giraffe to version 3.2.x
