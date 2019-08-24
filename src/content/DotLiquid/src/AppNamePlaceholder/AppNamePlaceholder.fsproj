@@ -10,7 +10,7 @@
 
   <ItemGroup Condition="'$(UsePaket)' == false OR '$(UsePaket)' == ''">
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Giraffe" Version="3.4.*" />
+    <PackageReference Include="Giraffe" Version="3.6.*" />
     <PackageReference Include="Giraffe.DotLiquid" Version="1.2.*" />
     <PackageReference Include="TaskBuilder.fs" Version="2.1.*" />
   </ItemGroup>
