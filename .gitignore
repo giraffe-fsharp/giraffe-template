@@ -294,3 +294,6 @@ __pycache__/
 #custom
 
 .temp
+
+#Ionide
+.ionide
