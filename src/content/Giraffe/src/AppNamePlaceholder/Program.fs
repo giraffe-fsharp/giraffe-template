@@ -83,10 +83,10 @@ let configureCors (builder : CorsPolicyBuilder) =
            |> ignore
 
 let configureApp (app : IApplicationBuilder) =
-    let env = app.ApplicationServices.GetService<IHostingEnvironment>()
-    (match env.IsDevelopment() with
-    | true  -> app.UseDeveloperExceptionPage()
-    | false -> app.UseGiraffeErrorHandler errorHandler)
+    let env = app.ApplicationServices.GetService<IWebHostEnvironment>()
+    (match env.EnvironmentName with
+    | "Development" -> app.UseDeveloperExceptionPage()
+    | _ -> app.UseGiraffeErrorHandler(errorHandler))
         .UseHttpsRedirection()
         .UseCors(configureCors)
         .UseStaticFiles()
