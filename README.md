@@ -1,10 +1,12 @@
-# Giraffe Template
-
 ![Giraffe](https://raw.githubusercontent.com/giraffe-fsharp/Giraffe/master/giraffe.png)
+
+# Giraffe Template
 
 Giraffe web application template for the `dotnet new` command.
 
 [![NuGet Info](https://buildstats.info/nuget/giraffe-template)](https://www.nuget.org/packages/giraffe-template/)
+
+[![Build History](https://buildstats.info/appveyor/chart/dustinmoris/giraffe-template?branch=develop)](https://ci.appveyor.com/project/dustinmoris/giraffe-template/history?branch=develop)
 
 ## Table of contents
 

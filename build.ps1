@@ -36,8 +36,8 @@ Remove-OldBuildArtifacts
 
 # Test Giraffe template
 Write-Host "Building and testing Giraffe tempalte..." -ForegroundColor Magenta
-$giraffeApp     = "src/content/Giraffe/src/AppName/AppName.fsproj"
-$giraffeTests   = "src/content/Giraffe/tests/AppName.Tests/AppName.Tests.fsproj"
+$giraffeApp     = "src/content/Giraffe/src/AppName.1/AppName.1.fsproj"
+$giraffeTests   = "src/content/Giraffe/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
 
 dotnet-restore $giraffeApp
 dotnet-build   $giraffeApp
@@ -47,8 +47,8 @@ dotnet-test    $giraffeTests
 
 # Test Razor template
 Write-Host "Building and testing Razor tempalte..." -ForegroundColor Magenta
-$razorApp       = "src/content/Razor/src/AppName/AppName.fsproj"
-$razorTests     = "src/content/Razor/tests/AppName.Tests/AppName.Tests.fsproj"
+$razorApp       = "src/content/Razor/src/AppName.1/AppName.1.fsproj"
+$razorTests     = "src/content/Razor/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
 
 dotnet-restore $razorApp
 dotnet-build   $razorApp
@@ -58,8 +58,8 @@ dotnet-test    $razorTests
 
 # Test DotLiquid template
 Write-Host "Building and testing DotLiquid tempalte..." -ForegroundColor Magenta
-$dotLiquidApp   = "src/content/DotLiquid/src/AppName/AppName.fsproj"
-$dotLiquidTests = "src/content/DotLiquid/tests/AppName.Tests/AppName.Tests.fsproj"
+$dotLiquidApp   = "src/content/DotLiquid/src/AppName.1/AppName.1.fsproj"
+$dotLiquidTests = "src/content/DotLiquid/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
 
 dotnet-restore $dotLiquidApp
 dotnet-build   $dotLiquidApp
@@ -69,8 +69,8 @@ dotnet-test    $dotLiquidTests
 
 # Test None template
 Write-Host "Building and testing None tempalte..." -ForegroundColor Magenta
-$noneApp   = "src/content/None/src/AppName/AppName.fsproj"
-$noneTests = "src/content/None/tests/AppName.Tests/AppName.Tests.fsproj"
+$noneApp   = "src/content/None/src/AppName.1/AppName.1.fsproj"
+$noneTests = "src/content/None/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
 
 dotnet-restore $noneApp
 dotnet-build   $noneApp
