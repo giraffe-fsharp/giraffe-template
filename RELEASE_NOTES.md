@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+## 0.21.0
+
+- Updated Giraffe to version 4.0.x
+- Set .NET 3.1 LTS as Default
+- Fix build warnings
+
 ## 0.20.0
 
 - Added shebang and fixed shellcheck warnings
