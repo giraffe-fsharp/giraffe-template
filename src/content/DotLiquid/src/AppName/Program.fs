@@ -1,6 +1,7 @@
-module AppNamePlaceholder.App
+module AppName.App
 
 open System
+open System.IO
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Cors.Infrastructure
 open Microsoft.AspNetCore.Hosting
@@ -8,20 +9,25 @@ open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
-open AppNamePlaceholder.HttpHandlers
+open DotLiquid
+open AppName.Models
 
 // ---------------------------------
 // Web app
 // ---------------------------------
 
+let indexHandler (name : string) =
+    let greetings = sprintf "Hello %s, from Giraffe!" name
+    let model     = { Text = greetings }
+    dotLiquidHtmlTemplate "Views/Index.html" model
+
 let webApp =
     choose [
-        subRoute "/api"
-            (choose [
-                GET >=> choose [
-                    route "/hello" >=> handleGetHello
-                ]
-            ])
+        GET >=>
+            choose [
+                route "/" >=> indexHandler "world"
+                routef "/hello/%s" indexHandler
+            ]
         setStatusCode 404 >=> text "Not Found" ]
 
 // ---------------------------------
@@ -49,6 +55,7 @@ let configureApp (app : IApplicationBuilder) =
     | _ -> app.UseGiraffeErrorHandler(errorHandler))
         .UseHttpsRedirection()
         .UseCors(configureCors)
+        .UseStaticFiles()
         .UseGiraffe(webApp)
 
 let configureServices (services : IServiceCollection) =
@@ -62,10 +69,14 @@ let configureLogging (builder : ILoggingBuilder) =
 
 [<EntryPoint>]
 let main _ =
+    let contentRoot = Directory.GetCurrentDirectory()
+    let webRoot     = Path.Combine(contentRoot, "WebRoot")
     Host.CreateDefaultBuilder()
         .ConfigureWebHostDefaults(
             fun webHostBuilder ->
                 webHostBuilder
+                    .UseContentRoot(contentRoot)
+                    .UseWebRoot(webRoot)
                     .Configure(Action<IApplicationBuilder> configureApp)
                     .ConfigureServices(configureServices)
                     .ConfigureLogging(configureLogging)

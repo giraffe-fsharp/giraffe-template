@@ -1,4 +1,4 @@
-module AppNamePlaceholder.App
+module AppName.App
 
 open System
 open Microsoft.AspNetCore.Builder
@@ -8,7 +8,7 @@ open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
-open AppNamePlaceholder.HttpHandlers
+open AppName.HttpHandlers
 
 // ---------------------------------
 // Web app
