@@ -1,13 +1,13 @@
 {
   "identity": "Giraffe.Template",
   "shortName": "giraffe",
-  "name": "Giraffe Web App",
+  "name": "Giraffe",
   "author": "Dustin Moris Gorski, David Sinclair and contributors",
   "classifications": [ "Web", "Giraffe", "ASP.NET" ],
   "tags": {
     "language": "F#"
   },
-  "sourceName": "AppNamePlaceholder",
+  "sourceName": "AppName",
   "symbols": {
     "ViewEngine": {
       "type": "parameter",
@@ -16,7 +16,7 @@
       "choices": [
         {
           "choice": "giraffe",
-          "description": "Default GiraffeViewEngine"
+          "description": "Giraffe.ViewEngine views"
         },
         {
           "choice": "razor",
@@ -24,7 +24,7 @@
         },
         {
           "choice": "dotliquid",
-          "description": "DotLiquid template engine"
+          "description": "DotLiquid template views"
         },
         {
           "choice": "none",
@@ -51,7 +51,7 @@
       "modifiers": [
         {
           "condition": "(!IncludeTests)",
-          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+          "exclude": [ "**/AppName.Tests/**/*" ]
         },
         {
           "condition": "(!UsePaket)",
@@ -66,7 +66,7 @@
       "modifiers": [
         {
           "condition": "(!IncludeTests)",
-          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+          "exclude": [ "**/AppName.Tests/**/*" ]
         },
         {
           "condition": "(!UsePaket)",
@@ -81,7 +81,7 @@
       "modifiers": [
         {
           "condition": "(!IncludeTests)",
-          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+          "exclude": [ "**/AppName.Tests/**/*" ]
         },
         {
           "condition": "(!UsePaket)",
@@ -96,7 +96,7 @@
       "modifiers": [
         {
           "condition": "(!IncludeTests)",
-          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+          "exclude": [ "**/AppName.Tests/**/*" ]
         },
         {
           "condition": "(!UsePaket)",
@@ -111,7 +111,7 @@
       "modifiers": [
         {
           "condition": "(!IncludeTests)",
-          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+          "exclude": [ "**/AppName.Tests/**/*" ]
         }
       ]
     },

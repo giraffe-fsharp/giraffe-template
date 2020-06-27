@@ -8,11 +8,11 @@ else
     dotnet paket restore
 fi
 #endif
-dotnet restore src/AppNamePlaceholder
-dotnet build src/AppNamePlaceholder --no-restore
+dotnet restore src/AppName
+dotnet build src/AppName --no-restore
 
 #if (IncludeTests)
-dotnet restore tests/AppNamePlaceholder.Tests
-dotnet build tests/AppNamePlaceholder.Tests --no-restore
-dotnet test tests/AppNamePlaceholder.Tests --no-build
+dotnet restore tests/AppName.Tests
+dotnet build tests/AppName.Tests --no-restore
+dotnet test tests/AppName.Tests --no-build
 #endif

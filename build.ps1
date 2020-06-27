@@ -36,8 +36,8 @@ Remove-OldBuildArtifacts
 
 # Test Giraffe template
 Write-Host "Building and testing Giraffe tempalte..." -ForegroundColor Magenta
-$giraffeApp     = "src/content/Giraffe/src/AppNamePlaceholder/AppNamePlaceholder.fsproj"
-$giraffeTests   = "src/content/Giraffe/tests/AppNamePlaceholder.Tests/AppNamePlaceholder.Tests.fsproj"
+$giraffeApp     = "src/content/Giraffe/src/AppName/AppName.fsproj"
+$giraffeTests   = "src/content/Giraffe/tests/AppName.Tests/AppName.Tests.fsproj"
 
 dotnet-restore $giraffeApp
 dotnet-build   $giraffeApp
@@ -47,8 +47,8 @@ dotnet-test    $giraffeTests
 
 # Test Razor template
 Write-Host "Building and testing Razor tempalte..." -ForegroundColor Magenta
-$razorApp       = "src/content/Razor/src/AppNamePlaceholder/AppNamePlaceholder.fsproj"
-$razorTests     = "src/content/Razor/tests/AppNamePlaceholder.Tests/AppNamePlaceholder.Tests.fsproj"
+$razorApp       = "src/content/Razor/src/AppName/AppName.fsproj"
+$razorTests     = "src/content/Razor/tests/AppName.Tests/AppName.Tests.fsproj"
 
 dotnet-restore $razorApp
 dotnet-build   $razorApp
@@ -58,8 +58,8 @@ dotnet-test    $razorTests
 
 # Test DotLiquid template
 Write-Host "Building and testing DotLiquid tempalte..." -ForegroundColor Magenta
-$dotLiquidApp   = "src/content/DotLiquid/src/AppNamePlaceholder/AppNamePlaceholder.fsproj"
-$dotLiquidTests = "src/content/DotLiquid/tests/AppNamePlaceholder.Tests/AppNamePlaceholder.Tests.fsproj"
+$dotLiquidApp   = "src/content/DotLiquid/src/AppName/AppName.fsproj"
+$dotLiquidTests = "src/content/DotLiquid/tests/AppName.Tests/AppName.Tests.fsproj"
 
 dotnet-restore $dotLiquidApp
 dotnet-build   $dotLiquidApp
@@ -69,8 +69,8 @@ dotnet-test    $dotLiquidTests
 
 # Test None template
 Write-Host "Building and testing None tempalte..." -ForegroundColor Magenta
-$noneApp   = "src/content/None/src/AppNamePlaceholder/AppNamePlaceholder.fsproj"
-$noneTests = "src/content/None/tests/AppNamePlaceholder.Tests/AppNamePlaceholder.Tests.fsproj"
+$noneApp   = "src/content/None/src/AppName/AppName.fsproj"
+$noneTests = "src/content/None/tests/AppName.Tests/AppName.Tests.fsproj"
 
 dotnet-restore $noneApp
 dotnet-build   $noneApp
