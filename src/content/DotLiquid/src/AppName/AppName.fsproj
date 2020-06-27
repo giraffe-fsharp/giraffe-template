@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <None Include="web.config" CopyToOutputDirectory="PreserveNewest" />
+    <None Condition="'$(UsePaket)' == true" Include="paket.references" />
     <Content Include="Views\*.html;WebRoot\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

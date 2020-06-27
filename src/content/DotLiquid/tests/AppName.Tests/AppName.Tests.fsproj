@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup Condition="'$(UsePaket)' == false OR '$(UsePaket)' == ''">
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.*" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.*" />
@@ -16,6 +15,9 @@
 
   <ItemGroup>
     <Compile Include="Tests.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Condition="'$(UsePaket)' == true" Include="paket.references" />
   </ItemGroup>
   <Import Condition="'$(UsePaket)' == true" Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
