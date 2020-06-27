@@ -1,12 +1,18 @@
 Release Notes
 =============
 
-## 0.21.0
+## 1.0.0
 
-- Updated Giraffe to version 4.1.x
+- Updated Giraffe to version `4.1.x`
 - Set `netcoreapp3.1` as default target framework
-- Fixed build warnings
+- Upgraded all templates to use .NET Core's generic host
 - Updated Paket to use `dotnet tools` distribution
+- Fixed cyclic dependency issue when `dotnet new giraffe` is run from within a folder named `Giraffe`
+- Added `paket.references` files to `*.fsproj` files when `-UsePaket` is enabled
+- Creating a `.sln` file referencing the created projects as part of the template
+- Fixed bug where hyphens in project name caused builds to fail (e.g. `dotnet new giraffe -n foo-bar`)
+- Fixed build some warnings
+-
 
 ## 0.20.0
 
