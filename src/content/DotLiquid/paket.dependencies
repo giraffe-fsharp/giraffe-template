@@ -1,7 +1,6 @@
 storage: none
 source https://api.nuget.org/v3/index.json
 
-nuget Microsoft.AspNetCore.App
 nuget Giraffe
 nuget Giraffe.DotLiquid
 nuget Microsoft.NET.Test.Sdk
