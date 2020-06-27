@@ -1,6 +1,9 @@
 rem #if (UsePaket)
+dotnet tool restore
 IF NOT EXIST paket.lock (
-    START /WAIT .paket/paket.exe install
+    dotnet paket install
+) ELSE (
+    dotnet paket restore
 )
 rem #endif
 dotnet restore src/AppNamePlaceholder
