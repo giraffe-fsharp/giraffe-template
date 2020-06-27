@@ -6,6 +6,7 @@ Release Notes
 - Updated Giraffe to version 4.1.x
 - Set `netcoreapp3.1` as default target framework
 - Fixed build warnings
+- Updated Paket to use `dotnet tools` distribution
 
 ## 0.20.0
 
