@@ -120,10 +120,12 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
 
             $engine = $viewEngine.ToLower()
 
-            Invoke-Cmd ("dotnet new giraffe -lang F# -V $engine -o $tempFolder/$viewEngine" + "App")
-            Invoke-Cmd ("dotnet new giraffe -lang F# -I -V $engine -o $tempFolder/$viewEngine" + "TestsApp")
-            Invoke-Cmd ("dotnet new giraffe -lang F# -U -V $engine -o $tempFolder/$viewEngine" + "PaketApp")
-            Invoke-Cmd ("dotnet new giraffe -lang F# -I -U -V $engine -o $tempFolder/$viewEngine" + "TestsPaketApp")
+            Invoke-Cmd ("dotnet new giraffe -lang F# -V $engine -o $tempFolder/$viewEngine" + "RawApp")
+            Invoke-Cmd ("dotnet new giraffe -lang F# -P -V $engine -o $tempFolder/$viewEngine" + "RawPaketApp")
+            Invoke-Cmd ("dotnet new giraffe -lang F# -S -V $engine -o $tempFolder/$viewEngine" + "TestsApp")
+            Invoke-Cmd ("dotnet new giraffe -lang F# -S -E -V $engine -o $tempFolder/$viewEngine" + "App")
+            Invoke-Cmd ("dotnet new giraffe -lang F# -S -P -V $engine -o $tempFolder/$viewEngine" + "TestsPaketApp")
+            Invoke-Cmd ("dotnet new giraffe -lang F# -S -E -P -V $engine -o $tempFolder/$viewEngine" + "PaketApp")
         }
 
         if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent)

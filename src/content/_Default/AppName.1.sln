@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B8CB57F5-C87C-48A1-A3DC-BF5BBA95EB25}"
 EndProject
-#if (IncludeTests)
+#if (!ExcludeTests)
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E6D01694-CB7C-4226-99EE-103B75B923FB}"
 EndProject
 #endif
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AppName.1", "src\AppName.1\AppName.1.fsproj", "{C56E75B2-5671-46E1-8594-6529135E7082}"
 EndProject
-#if (IncludeTests)
+#if (!ExcludeTests)
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AppName.1.Tests", "tests\AppName.1.Tests\AppName.1.Tests.fsproj", "{DB284F96-3FC7-49A0-8667-18732B962F3E}"
 EndProject
 #endif
@@ -40,7 +40,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C56E75B2-5671-46E1-8594-6529135E7082} = {B8CB57F5-C87C-48A1-A3DC-BF5BBA95EB25}
-		#if (IncludeTests)
+		#if (!ExcludeTests)
 		{DB284F96-3FC7-49A0-8667-18732B962F3E} = {E6D01694-CB7C-4226-99EE-103B75B923FB}
 		#endif
 	EndGlobalSection
@@ -57,7 +57,7 @@ Global
 		{C56E75B2-5671-46E1-8594-6529135E7082}.Release|x64.Build.0 = Release|Any CPU
 		{C56E75B2-5671-46E1-8594-6529135E7082}.Release|x86.ActiveCfg = Release|Any CPU
 		{C56E75B2-5671-46E1-8594-6529135E7082}.Release|x86.Build.0 = Release|Any CPU
-		#if (IncludeTests)
+		#if (!ExcludeTests)
 		{DB284F96-3FC7-49A0-8667-18732B962F3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DB284F96-3FC7-49A0-8667-18732B962F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB284F96-3FC7-49A0-8667-18732B962F3E}.Debug|x64.ActiveCfg = Debug|Any CPU

@@ -8,6 +8,6 @@ IF NOT EXIST paket.lock (
 rem #endif
 dotnet restore
 dotnet build --no-restore
-rem #if (IncludeTests)
+rem #if (!ExcludeTests)
 dotnet test --no-build
 rem #endif

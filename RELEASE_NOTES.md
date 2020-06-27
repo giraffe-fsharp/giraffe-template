@@ -11,6 +11,9 @@ Release Notes
 - Added `paket.references` files to `*.fsproj` files when `-UsePaket` is enabled
 - Creating a `.sln` file referencing the created projects as part of the template
 - Fixed bug where hyphens in project name caused builds to fail (e.g. `dotnet new giraffe -n foo-bar`)
+- Renamed `IncludeTests` flag to `ExcludeTests` and inverted logic
+- Renamed `UsePaket` flag to `Paket` so that the default abbreviation is `-P` instead of `-U`
+- Added new `Solution` flag, which determines if a complete solution with `src` and (optional) `tests` folder should get created or not. Default value is set to `false`
 - Fixed build some warnings
 -
 

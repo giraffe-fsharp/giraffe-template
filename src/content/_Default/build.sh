@@ -10,6 +10,6 @@ fi
 #endif
 dotnet restore
 dotnet build --no-restore
-#if (IncludeTests)
+#if (!ExcludeTests)
 dotnet test --no-build
 #endif

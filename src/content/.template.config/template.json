@@ -32,7 +32,12 @@
         }
       ]
     },
-    "IncludeTests": {
+    "Solution": {
+      "type": "parameter",
+      "dataType": "bool",
+      "defaultValue": "false"
+    },
+    "ExcludeTests": {
       "type": "parameter",
       "dataType": "bool",
       "defaultValue": "false"
@@ -45,12 +50,56 @@
   },
   "sources": [
     {
-      "source": "./Giraffe/",
+      "source": "./Giraffe/src/AppName.1/",
       "target": "./",
-      "condition": "(ViewEngine == \"giraffe\")",
+      "condition": "(ViewEngine == \"giraffe\") && (!Solution)",
       "modifiers": [
         {
-          "condition": "(!IncludeTests)",
+          "condition": "(!UsePaket)",
+          "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./Razor/src/AppName.1/",
+      "target": "./",
+      "condition": "(ViewEngine == \"razor\") && (!Solution)",
+      "modifiers": [
+        {
+          "condition": "(!UsePaket)",
+          "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./DotLiquid/src/AppName.1/",
+      "target": "./",
+      "condition": "(ViewEngine == \"dotliquid\") && (!Solution)",
+      "modifiers": [
+        {
+          "condition": "(!UsePaket)",
+          "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./None/src/AppName.1/",
+      "target": "./",
+      "condition": "(ViewEngine == \"none\") && (!Solution)",
+      "modifiers": [
+        {
+          "condition": "(!UsePaket)",
+          "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./Giraffe/",
+      "target": "./",
+      "condition": "(ViewEngine == \"giraffe\") && (Solution)",
+      "modifiers": [
+        {
+          "condition": "(ExcludeTests)",
           "exclude": [ "**/AppName.1.Tests/**/*" ]
         },
         {
@@ -62,10 +111,10 @@
     {
       "source": "./Razor/",
       "target": "./",
-      "condition": "(ViewEngine == \"razor\")",
+      "condition": "(ViewEngine == \"razor\") && (Solution)",
       "modifiers": [
         {
-          "condition": "(!IncludeTests)",
+          "condition": "(ExcludeTests)",
           "exclude": [ "**/AppName.1.Tests/**/*" ]
         },
         {
@@ -77,10 +126,10 @@
     {
       "source": "./DotLiquid/",
       "target": "./",
-      "condition": "(ViewEngine == \"dotliquid\")",
+      "condition": "(ViewEngine == \"dotliquid\") && (Solution)",
       "modifiers": [
         {
-          "condition": "(!IncludeTests)",
+          "condition": "(ExcludeTests)",
           "exclude": [ "**/AppName.1.Tests/**/*" ]
         },
         {
@@ -92,10 +141,10 @@
     {
       "source": "./None/",
       "target": "./",
-      "condition": "(ViewEngine == \"none\")",
+      "condition": "(ViewEngine == \"none\") && (Solution)",
       "modifiers": [
         {
-          "condition": "(!IncludeTests)",
+          "condition": "(ExcludeTests)",
           "exclude": [ "**/AppName.1.Tests/**/*" ]
         },
         {
@@ -110,18 +159,19 @@
       "condition": "(UsePaket)",
       "modifiers": [
         {
-          "condition": "(!IncludeTests)",
+          "condition": "(ExcludeTests) || (!Solution)",
           "exclude": [ "**/AppName.1.Tests/**/*" ]
         }
       ]
     },
     {
       "source": "./_Default/",
-      "target": "./"
+      "target": "./",
+      "condition": "(Solution)"
     }
   ],
   "postActions": [{
-    "condition": "(OS != \"Windows_NT\")",
+    "condition": "(OS != \"Windows_NT\") && (Solution)",
     "description": "Make scripts executable",
     "manualInstructions": [{
         "text": "Run 'chmod +x *.sh'"
