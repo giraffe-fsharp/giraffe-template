@@ -6,11 +6,8 @@ IF NOT EXIST paket.lock (
     dotnet paket restore
 )
 rem #endif
-dotnet restore src/AppName
-dotnet build src/AppName --no-restore
-
+dotnet restore
+dotnet build --no-restore
 rem #if (IncludeTests)
-dotnet restore tests/AppName.Tests
-dotnet build tests/AppName.Tests --no-restore
-dotnet test tests/AppName.Tests --no-build
+dotnet test --no-build
 rem #endif
