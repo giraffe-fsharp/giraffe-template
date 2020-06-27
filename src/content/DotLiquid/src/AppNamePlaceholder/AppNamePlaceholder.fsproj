@@ -2,15 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <DebugType>portable</DebugType>
     <AssemblyName>AppNamePlaceholder.App</AssemblyName>
-    <OutputType>Exe</OutputType>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(UsePaket)' == false OR '$(UsePaket)' == ''">
-    <PackageReference Include="Giraffe" Version="4.0.*" />
-    <PackageReference Include="Giraffe.DotLiquid" Version="1.2.*" />
+    <PackageReference Include="Giraffe" Version="4.1.*" />
+    <PackageReference Include="Giraffe.DotLiquid" Version="2.0.*" />
     <PackageReference Include="TaskBuilder.fs" Version="2.1.*" />
   </ItemGroup>
 

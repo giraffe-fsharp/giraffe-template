@@ -3,9 +3,9 @@ Release Notes
 
 ## 0.21.0
 
-- Updated Giraffe to version 4.0.x
-- Set .NET 3.1 LTS as Default
-- Fix build warnings
+- Updated Giraffe to version 4.1.x
+- Set `netcoreapp3.1` as default target framework
+- Fixed build warnings
 
 ## 0.20.0
 
