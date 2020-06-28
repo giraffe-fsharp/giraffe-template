@@ -1,15 +1,15 @@
 #!/bin/sh
-#if (UsePaket)
+#if (Paket)
+dotnet tool restore
 if [ ! -e "paket.lock" ]
 then
-    exec mono .paket/paket.exe install
+    dotnet paket install
+else
+    dotnet paket restore
 fi
 #endif
-dotnet restore src/AppNamePlaceholder
-dotnet build src/AppNamePlaceholder
-
-#if (IncludeTests)
-dotnet restore tests/AppNamePlaceholder.Tests
-dotnet build tests/AppNamePlaceholder.Tests
-dotnet test tests/AppNamePlaceholder.Tests
+dotnet restore
+dotnet build --no-restore
+#if (!ExcludeTests)
+dotnet test --no-build
 #endif

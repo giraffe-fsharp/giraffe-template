@@ -1,13 +1,13 @@
-rem #if (UsePaket)
+rem #if (Paket)
+dotnet tool restore
 IF NOT EXIST paket.lock (
-    START /WAIT .paket/paket.exe install
+    dotnet paket install
+) ELSE (
+    dotnet paket restore
 )
 rem #endif
-dotnet restore src/AppNamePlaceholder
-dotnet build src/AppNamePlaceholder
-
-rem #if (IncludeTests)
-dotnet restore tests/AppNamePlaceholder.Tests
-dotnet build tests/AppNamePlaceholder.Tests
-dotnet test tests/AppNamePlaceholder.Tests
+dotnet restore
+dotnet build --no-restore
+rem #if (!ExcludeTests)
+dotnet test --no-build
 rem #endif

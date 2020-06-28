@@ -3,6 +3,7 @@ source https://api.nuget.org/v3/index.json
 
 nuget Giraffe
 nuget Giraffe.DotLiquid
+nuget TaskBuilder.fs
 nuget Microsoft.NET.Test.Sdk
 nuget Microsoft.AspNetCore.TestHost
 nuget xunit

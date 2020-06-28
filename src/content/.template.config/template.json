@@ -1,13 +1,13 @@
 {
   "identity": "Giraffe.Template",
   "shortName": "giraffe",
-  "name": "Giraffe Web App",
+  "name": "Giraffe",
   "author": "Dustin Moris Gorski, David Sinclair and contributors",
   "classifications": [ "Web", "Giraffe", "ASP.NET" ],
   "tags": {
     "language": "F#"
   },
-  "sourceName": "AppNamePlaceholder",
+  "sourceName": "AppName.1",
   "symbols": {
     "ViewEngine": {
       "type": "parameter",
@@ -16,7 +16,7 @@
       "choices": [
         {
           "choice": "giraffe",
-          "description": "Default GiraffeViewEngine"
+          "description": "Giraffe.ViewEngine views"
         },
         {
           "choice": "razor",
@@ -24,7 +24,7 @@
         },
         {
           "choice": "dotliquid",
-          "description": "DotLiquid template engine"
+          "description": "DotLiquid template views"
         },
         {
           "choice": "none",
@@ -32,12 +32,17 @@
         }
       ]
     },
-    "IncludeTests": {
+    "Solution": {
       "type": "parameter",
       "dataType": "bool",
       "defaultValue": "false"
     },
-    "UsePaket": {
+    "ExcludeTests": {
+      "type": "parameter",
+      "dataType": "bool",
+      "defaultValue": "false"
+    },
+    "Paket": {
       "type": "parameter",
       "dataType": "bool",
       "defaultValue": "false"
@@ -45,16 +50,49 @@
   },
   "sources": [
     {
-      "source": "./Giraffe/",
+      "source": "./Giraffe/src/AppName.1/",
       "target": "./",
-      "condition": "(ViewEngine == \"giraffe\")",
+      "condition": "(ViewEngine == \"giraffe\") && (!Solution)",
       "modifiers": [
         {
-          "condition": "(!IncludeTests)",
-          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+          "condition": "(!Paket)",
+          "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./Giraffe/",
+      "target": "./",
+      "condition": "(ViewEngine == \"giraffe\") && (!Solution) && (Paket)",
+      "modifiers": [
+        {
+          "condition": "(!Solution)",
+          "exclude": [ "tests/**/*", "src/**/*" ]
+        }
+      ]
+    },
+    {
+      "source": "./Giraffe/",
+      "target": "./",
+      "condition": "(ViewEngine == \"giraffe\") && (Solution)",
+      "modifiers": [
+        {
+          "condition": "(ExcludeTests)",
+          "exclude": [ "**/AppName.1.Tests/**/*" ]
         },
         {
-          "condition": "(!UsePaket)",
+          "condition": "(!Paket)",
+          "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./Razor/src/AppName.1/",
+      "target": "./",
+      "condition": "(ViewEngine == \"razor\") && (!Solution)",
+      "modifiers": [
+        {
+          "condition": "(!Paket)",
           "exclude": [ "**/paket.*" ]
         }
       ]
@@ -62,14 +100,36 @@
     {
       "source": "./Razor/",
       "target": "./",
-      "condition": "(ViewEngine == \"razor\")",
+      "condition": "(ViewEngine == \"razor\") && (!Solution) && (Paket)",
       "modifiers": [
         {
-          "condition": "(!IncludeTests)",
-          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+          "condition": "(!Solution)",
+          "exclude": [ "tests/**/*", "src/**/*" ]
+        }
+      ]
+    },
+    {
+      "source": "./Razor/",
+      "target": "./",
+      "condition": "(ViewEngine == \"razor\") && (Solution)",
+      "modifiers": [
+        {
+          "condition": "(ExcludeTests)",
+          "exclude": [ "**/AppName.1.Tests/**/*" ]
         },
         {
-          "condition": "(!UsePaket)",
+          "condition": "(!Paket)",
+          "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./DotLiquid/src/AppName.1/",
+      "target": "./",
+      "condition": "(ViewEngine == \"dotliquid\") && (!Solution)",
+      "modifiers": [
+        {
+          "condition": "(!Paket)",
           "exclude": [ "**/paket.*" ]
         }
       ]
@@ -77,14 +137,36 @@
     {
       "source": "./DotLiquid/",
       "target": "./",
-      "condition": "(ViewEngine == \"dotliquid\")",
+      "condition": "(ViewEngine == \"dotliquid\") && (!Solution) && (Paket)",
       "modifiers": [
         {
-          "condition": "(!IncludeTests)",
-          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+          "condition": "(!Solution)",
+          "exclude": [ "tests/**/*", "src/**/*" ]
+        }
+      ]
+    },
+    {
+      "source": "./DotLiquid/",
+      "target": "./",
+      "condition": "(ViewEngine == \"dotliquid\") && (Solution)",
+      "modifiers": [
+        {
+          "condition": "(ExcludeTests)",
+          "exclude": [ "**/AppName.1.Tests/**/*" ]
         },
         {
-          "condition": "(!UsePaket)",
+          "condition": "(!Paket)",
+          "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./None/src/AppName.1/",
+      "target": "./",
+      "condition": "(ViewEngine == \"none\") && (!Solution)",
+      "modifiers": [
+        {
+          "condition": "(!Paket)",
           "exclude": [ "**/paket.*" ]
         }
       ]
@@ -92,14 +174,25 @@
     {
       "source": "./None/",
       "target": "./",
-      "condition": "(ViewEngine == \"none\")",
+      "condition": "(ViewEngine == \"none\") && (!Solution) && (Paket)",
       "modifiers": [
         {
-          "condition": "(!IncludeTests)",
-          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+          "condition": "(!Solution)",
+          "exclude": [ "tests/**/*", "src/**/*" ]
+        }
+      ]
+    },
+    {
+      "source": "./None/",
+      "target": "./",
+      "condition": "(ViewEngine == \"none\") && (Solution)",
+      "modifiers": [
+        {
+          "condition": "(ExcludeTests)",
+          "exclude": [ "**/AppName.1.Tests/**/*" ]
         },
         {
-          "condition": "(!UsePaket)",
+          "condition": "(!Paket)",
           "exclude": [ "**/paket.*" ]
         }
       ]
@@ -107,21 +200,22 @@
     {
       "source": "./Paket/",
       "target": "./",
-      "condition": "(UsePaket)",
+      "condition": "(Paket)",
       "modifiers": [
         {
-          "condition": "(!IncludeTests)",
-          "exclude": [ "**/AppNamePlaceholder.Tests/**/*" ]
+          "condition": "(ExcludeTests) || (!Solution)",
+          "exclude": [ "**/AppName.1.Tests/**/*" ]
         }
       ]
     },
     {
       "source": "./_Default/",
-      "target": "./"
+      "target": "./",
+      "condition": "(Solution)"
     }
   ],
   "postActions": [{
-    "condition": "(OS != \"Windows_NT\")",
+    "condition": "(OS != \"Windows_NT\") && (Solution)",
     "description": "Make scripts executable",
     "manualInstructions": [{
         "text": "Run 'chmod +x *.sh'"

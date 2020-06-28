@@ -1,11 +1,22 @@
 Release Notes
 =============
 
-## 0.21.0
+## 1.0.0
 
-- Updated Giraffe to version 4.0.x
-- Set .NET 3.1 LTS as Default
-- Fix build warnings
+- Updated Giraffe to version `4.1.x`
+- Set `netcoreapp3.1` as default target framework
+- Upgraded all templates to use .NET Core's generic host
+- Updated Paket to use `dotnet tools` distribution
+- Fixed cyclic dependency issue when `dotnet new giraffe` is run from within a folder named `Giraffe`
+- Added `paket.references` files to `*.fsproj` files when `-UsePaket` is enabled
+- Creating a `.sln` file referencing the created projects as part of the template
+- Fixed bug where hyphens in project name caused builds to fail (e.g. `dotnet new giraffe -n foo-bar`)
+- Renamed `IncludeTests` flag to `ExcludeTests` and inverted logic
+- Renamed `UsePaket` flag to `Paket` so that the default abbreviation is `-P` instead of `-U`
+- Added new `Solution` flag, which determines if a complete solution with `src` and (optional) `tests` folder should get created or not. Default value is set to `false`
+- Fixed build some warnings
+
+For more information please visit the [updated documentation](README.md) regarding the latest template options of the Giraffe template.
 
 ## 0.20.0
 

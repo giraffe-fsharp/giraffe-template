@@ -36,8 +36,8 @@ Remove-OldBuildArtifacts
 
 # Test Giraffe template
 Write-Host "Building and testing Giraffe tempalte..." -ForegroundColor Magenta
-$giraffeApp     = "src/content/Giraffe/src/AppNamePlaceholder/AppNamePlaceholder.fsproj"
-$giraffeTests   = "src/content/Giraffe/tests/AppNamePlaceholder.Tests/AppNamePlaceholder.Tests.fsproj"
+$giraffeApp     = "src/content/Giraffe/src/AppName.1/AppName.1.fsproj"
+$giraffeTests   = "src/content/Giraffe/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
 
 dotnet-restore $giraffeApp
 dotnet-build   $giraffeApp
@@ -47,8 +47,8 @@ dotnet-test    $giraffeTests
 
 # Test Razor template
 Write-Host "Building and testing Razor tempalte..." -ForegroundColor Magenta
-$razorApp       = "src/content/Razor/src/AppNamePlaceholder/AppNamePlaceholder.fsproj"
-$razorTests     = "src/content/Razor/tests/AppNamePlaceholder.Tests/AppNamePlaceholder.Tests.fsproj"
+$razorApp       = "src/content/Razor/src/AppName.1/AppName.1.fsproj"
+$razorTests     = "src/content/Razor/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
 
 dotnet-restore $razorApp
 dotnet-build   $razorApp
@@ -58,8 +58,8 @@ dotnet-test    $razorTests
 
 # Test DotLiquid template
 Write-Host "Building and testing DotLiquid tempalte..." -ForegroundColor Magenta
-$dotLiquidApp   = "src/content/DotLiquid/src/AppNamePlaceholder/AppNamePlaceholder.fsproj"
-$dotLiquidTests = "src/content/DotLiquid/tests/AppNamePlaceholder.Tests/AppNamePlaceholder.Tests.fsproj"
+$dotLiquidApp   = "src/content/DotLiquid/src/AppName.1/AppName.1.fsproj"
+$dotLiquidTests = "src/content/DotLiquid/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
 
 dotnet-restore $dotLiquidApp
 dotnet-build   $dotLiquidApp
@@ -69,8 +69,8 @@ dotnet-test    $dotLiquidTests
 
 # Test None template
 Write-Host "Building and testing None tempalte..." -ForegroundColor Magenta
-$noneApp   = "src/content/None/src/AppNamePlaceholder/AppNamePlaceholder.fsproj"
-$noneTests = "src/content/None/tests/AppNamePlaceholder.Tests/AppNamePlaceholder.Tests.fsproj"
+$noneApp   = "src/content/None/src/AppName.1/AppName.1.fsproj"
+$noneTests = "src/content/None/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
 
 dotnet-restore $noneApp
 dotnet-build   $noneApp
@@ -120,10 +120,12 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
 
             $engine = $viewEngine.ToLower()
 
-            Invoke-Cmd ("dotnet new giraffe -lang F# -V $engine -o $tempFolder/$viewEngine" + "App")
-            Invoke-Cmd ("dotnet new giraffe -lang F# -I -V $engine -o $tempFolder/$viewEngine" + "TestsApp")
-            Invoke-Cmd ("dotnet new giraffe -lang F# -U -V $engine -o $tempFolder/$viewEngine" + "PaketApp")
-            Invoke-Cmd ("dotnet new giraffe -lang F# -I -U -V $engine -o $tempFolder/$viewEngine" + "TestsPaketApp")
+            Invoke-Cmd ("dotnet new giraffe -lang F# -V $engine -o $tempFolder/$viewEngine" + "RawApp")
+            Invoke-Cmd ("dotnet new giraffe -lang F# -P -V $engine -o $tempFolder/$viewEngine" + "RawPaketApp")
+            Invoke-Cmd ("dotnet new giraffe -lang F# -S -V $engine -o $tempFolder/$viewEngine" + "TestsApp")
+            Invoke-Cmd ("dotnet new giraffe -lang F# -S -E -V $engine -o $tempFolder/$viewEngine" + "App")
+            Invoke-Cmd ("dotnet new giraffe -lang F# -S -P -V $engine -o $tempFolder/$viewEngine" + "TestsPaketApp")
+            Invoke-Cmd ("dotnet new giraffe -lang F# -S -E -P -V $engine -o $tempFolder/$viewEngine" + "PaketApp")
         }
 
         if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent)
@@ -133,23 +135,36 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
             $isWin = Test-IsWindows
 
             Get-ChildItem ".temp" -Directory | ForEach-Object {
-                $name = $_.Name
+                $name    = $_.Name
+                $isRaw   = $name.Contains("Raw")
+                $isPaket = $name.Contains("Paket")
+
                 Write-Host "Running build script for $name..." -ForegroundColor Magenta
                 Push-Location $_.FullName
 
-                if ($UpdatePaketDependencies.IsPresent -and $name.Contains("Paket"))
+                if ($UpdatePaketDependencies.IsPresent -and $isPaket)
                 {
                     Remove-Item -Path "paket.lock" -Force
                 }
 
-                if ($isWin) {
+                if ($isRaw) {
+                    if ($isPaket) {
+                        if ($UpdatePaketDependencies.IsPresent) {
+                            Invoke-Cmd "dotnet paket install"
+                        } else {
+                            Invoke-Cmd "dotnet paket restore"
+                        }
+                    }
+                    Invoke-Cmd "dotnet build"
+                }
+                elseif ($isWin) {
                     Invoke-Cmd ("./build.bat")
                 }
                 else {
                     Invoke-Cmd ("sh ./build.sh")
                 }
 
-                if ($UpdatePaketDependencies.IsPresent -and $name.Contains("Paket"))
+                if ($UpdatePaketDependencies.IsPresent -and $isPaket)
                 {
                     $viewEngine = $name.Replace("App", "").Replace("Paket", "").Replace("Tests", "")
                     Copy-Item -Path "paket.lock" -Destination "../../src/content/$viewEngine/paket.lock" -Force
