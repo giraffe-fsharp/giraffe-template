@@ -1,4 +1,4 @@
-rem #if (UsePaket)
+rem #if (Paket)
 dotnet tool restore
 IF NOT EXIST paket.lock (
     dotnet paket install

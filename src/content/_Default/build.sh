@@ -1,5 +1,5 @@
 #!/bin/sh
-#if (UsePaket)
+#if (Paket)
 dotnet tool restore
 if [ ! -e "paket.lock" ]
 then

@@ -42,7 +42,7 @@
       "dataType": "bool",
       "defaultValue": "false"
     },
-    "UsePaket": {
+    "Paket": {
       "type": "parameter",
       "dataType": "bool",
       "defaultValue": "false"
@@ -55,41 +55,19 @@
       "condition": "(ViewEngine == \"giraffe\") && (!Solution)",
       "modifiers": [
         {
-          "condition": "(!UsePaket)",
+          "condition": "(!Paket)",
           "exclude": [ "**/paket.*" ]
         }
       ]
     },
     {
-      "source": "./Razor/src/AppName.1/",
+      "source": "./Giraffe/",
       "target": "./",
-      "condition": "(ViewEngine == \"razor\") && (!Solution)",
+      "condition": "(ViewEngine == \"giraffe\") && (!Solution) && (Paket)",
       "modifiers": [
         {
-          "condition": "(!UsePaket)",
-          "exclude": [ "**/paket.*" ]
-        }
-      ]
-    },
-    {
-      "source": "./DotLiquid/src/AppName.1/",
-      "target": "./",
-      "condition": "(ViewEngine == \"dotliquid\") && (!Solution)",
-      "modifiers": [
-        {
-          "condition": "(!UsePaket)",
-          "exclude": [ "**/paket.*" ]
-        }
-      ]
-    },
-    {
-      "source": "./None/src/AppName.1/",
-      "target": "./",
-      "condition": "(ViewEngine == \"none\") && (!Solution)",
-      "modifiers": [
-        {
-          "condition": "(!UsePaket)",
-          "exclude": [ "**/paket.*" ]
+          "condition": "(!Solution)",
+          "exclude": [ "tests/**/*", "src/**/*" ]
         }
       ]
     },
@@ -103,8 +81,30 @@
           "exclude": [ "**/AppName.1.Tests/**/*" ]
         },
         {
-          "condition": "(!UsePaket)",
+          "condition": "(!Paket)",
           "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./Razor/src/AppName.1/",
+      "target": "./",
+      "condition": "(ViewEngine == \"razor\") && (!Solution)",
+      "modifiers": [
+        {
+          "condition": "(!Paket)",
+          "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./Razor/",
+      "target": "./",
+      "condition": "(ViewEngine == \"razor\") && (!Solution) && (Paket)",
+      "modifiers": [
+        {
+          "condition": "(!Solution)",
+          "exclude": [ "tests/**/*", "src/**/*" ]
         }
       ]
     },
@@ -118,8 +118,30 @@
           "exclude": [ "**/AppName.1.Tests/**/*" ]
         },
         {
-          "condition": "(!UsePaket)",
+          "condition": "(!Paket)",
           "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./DotLiquid/src/AppName.1/",
+      "target": "./",
+      "condition": "(ViewEngine == \"dotliquid\") && (!Solution)",
+      "modifiers": [
+        {
+          "condition": "(!Paket)",
+          "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./DotLiquid/",
+      "target": "./",
+      "condition": "(ViewEngine == \"dotliquid\") && (!Solution) && (Paket)",
+      "modifiers": [
+        {
+          "condition": "(!Solution)",
+          "exclude": [ "tests/**/*", "src/**/*" ]
         }
       ]
     },
@@ -133,8 +155,30 @@
           "exclude": [ "**/AppName.1.Tests/**/*" ]
         },
         {
-          "condition": "(!UsePaket)",
+          "condition": "(!Paket)",
           "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./None/src/AppName.1/",
+      "target": "./",
+      "condition": "(ViewEngine == \"none\") && (!Solution)",
+      "modifiers": [
+        {
+          "condition": "(!Paket)",
+          "exclude": [ "**/paket.*" ]
+        }
+      ]
+    },
+    {
+      "source": "./None/",
+      "target": "./",
+      "condition": "(ViewEngine == \"none\") && (!Solution) && (Paket)",
+      "modifiers": [
+        {
+          "condition": "(!Solution)",
+          "exclude": [ "tests/**/*", "src/**/*" ]
         }
       ]
     },
@@ -148,7 +192,7 @@
           "exclude": [ "**/AppName.1.Tests/**/*" ]
         },
         {
-          "condition": "(!UsePaket)",
+          "condition": "(!Paket)",
           "exclude": [ "**/paket.*" ]
         }
       ]
@@ -156,7 +200,7 @@
     {
       "source": "./Paket/",
       "target": "./",
-      "condition": "(UsePaket)",
+      "condition": "(Paket)",
       "modifiers": [
         {
           "condition": "(ExcludeTests) || (!Solution)",

@@ -135,23 +135,36 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
             $isWin = Test-IsWindows
 
             Get-ChildItem ".temp" -Directory | ForEach-Object {
-                $name = $_.Name
+                $name    = $_.Name
+                $isRaw   = $name.Contains("Raw")
+                $isPaket = $name.Contains("Paket")
+
                 Write-Host "Running build script for $name..." -ForegroundColor Magenta
                 Push-Location $_.FullName
 
-                if ($UpdatePaketDependencies.IsPresent -and $name.Contains("Paket"))
+                if ($UpdatePaketDependencies.IsPresent -and $isPaket)
                 {
                     Remove-Item -Path "paket.lock" -Force
                 }
 
-                if ($isWin) {
+                if ($isRaw) {
+                    if ($isPaket) {
+                        if ($UpdatePaketDependencies.IsPresent) {
+                            Invoke-Cmd "dotnet paket install"
+                        } else {
+                            Invoke-Cmd "dotnet paket restore"
+                        }
+                    }
+                    Invoke-Cmd "dotnet build"
+                }
+                elseif ($isWin) {
                     Invoke-Cmd ("./build.bat")
                 }
                 else {
                     Invoke-Cmd ("sh ./build.sh")
                 }
 
-                if ($UpdatePaketDependencies.IsPresent -and $name.Contains("Paket"))
+                if ($UpdatePaketDependencies.IsPresent -and $isPaket)
                 {
                     $viewEngine = $name.Replace("App", "").Replace("Paket", "").Replace("Tests", "")
                     Copy-Item -Path "paket.lock" -Destination "../../src/content/$viewEngine/paket.lock" -Force

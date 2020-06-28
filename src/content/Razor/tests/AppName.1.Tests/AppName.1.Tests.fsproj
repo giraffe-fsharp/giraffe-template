@@ -3,7 +3,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
-  <ItemGroup Condition="'$(UsePaket)' == false OR '$(UsePaket)' == ''">
+  <ItemGroup Condition="'$(Paket)' == false OR '$(Paket)' == ''">
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.*" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.*" />
     <PackageReference Include="xunit" Version="2.4.*" />
@@ -18,7 +18,8 @@
     <Compile Include="Tests.fs" />
   </ItemGroup>
   <ItemGroup>
-    <None Condition="'$(UsePaket)' == true" Include="paket.references" />
+    <None Condition="'$(Paket)' == true" Include="paket.references" />
   </ItemGroup>
-  <Import Condition="'$(UsePaket)' == true" Project="..\..\.paket\Paket.Restore.targets" />
+  <Import Condition="'$(Paket)' == true AND '$(Solution)' == true" Project="..\..\.paket\Paket.Restore.targets" />
+  <Import Condition="'$(Paket)' == true AND '$(Solution)' == false" Project=".paket\Paket.Restore.targets" />
 </Project>
