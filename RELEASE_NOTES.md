@@ -15,7 +15,8 @@ Release Notes
 - Renamed `UsePaket` flag to `Paket` so that the default abbreviation is `-P` instead of `-U`
 - Added new `Solution` flag, which determines if a complete solution with `src` and (optional) `tests` folder should get created or not. Default value is set to `false`
 - Fixed build some warnings
--
+
+For more information please visit the [updated documentation](README.md) regarding the latest template options of the Giraffe template.
 
 ## 0.20.0
 
