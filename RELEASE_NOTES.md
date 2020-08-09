@@ -1,6 +1,10 @@
 Release Notes
 =============
 
+## 1.1.0
+
+- Changed all templates to make use of the passed in `args` when composing the ASP.NET Core web host.
+
 ## 1.0.0
 
 - Updated Giraffe to version `4.1.x`
