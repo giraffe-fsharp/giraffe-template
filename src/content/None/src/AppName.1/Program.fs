@@ -61,8 +61,8 @@ let configureLogging (builder : ILoggingBuilder) =
            .AddDebug() |> ignore
 
 [<EntryPoint>]
-let main _ =
-    Host.CreateDefaultBuilder()
+let main args =
+    Host.CreateDefaultBuilder(args)
         .ConfigureWebHostDefaults(
             fun webHostBuilder ->
                 webHostBuilder
