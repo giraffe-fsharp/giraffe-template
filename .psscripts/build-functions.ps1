@@ -129,6 +129,34 @@ function dotnet-run     ($project, $argv) { Invoke-Cmd "dotnet run --project $pr
 function dotnet-pack    ($project, $argv) { Invoke-Cmd "dotnet pack $project $argv" }
 function dotnet-publish ($project, $argv) { Invoke-Cmd "dotnet publish $project $argv" }
 
+function Get-DotNetRuntimeVersion
+{
+    <#
+        .DESCRIPTION
+        Runs the dotnet --info command and extracts the .NET Runtime version number.
+        .NOTES
+        The .NET Runtime version can sometimes be useful for other dotnet CLI commands (e.g. dotnet xunit -fxversion ".NET Runtime version").
+    #>
+
+    $info = dotnet-info
+    [System.Array]::Reverse($info)
+    $version = $info | Where-Object { $_.Contains("Version")  } | Select-Object -First 1
+    $version.Split(":")[1].Trim()
+}
+
+function Write-DotnetVersions
+{
+    <#
+        .DESCRIPTION
+        Writes the .NET SDK and Runtime version to the current host.
+    #>
+
+    $sdkVersion     = dotnet-version
+    $runtimeVersion = Get-DotNetRuntimeVersion
+    Write-Host ".NET SDK version:      $sdkVersion" -ForegroundColor Cyan
+    Write-Host ".NET Runtime version:  $runtimeVersion" -ForegroundColor Cyan
+}
+
 function Get-DesiredSdk
 {
     <#
