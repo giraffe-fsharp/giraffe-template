@@ -31,7 +31,7 @@ if (Test-IsAppVeyorBuildTriggeredByGitTag)
     Test-CompareVersions $version $gitTag
 }
 
-Write-DotnetCoreVersions
+Write-DotnetVersions
 Remove-OldBuildArtifacts
 
 # Test Giraffe template
