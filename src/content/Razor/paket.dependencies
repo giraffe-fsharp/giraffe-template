@@ -1,8 +1,10 @@
 storage: none
+framework: auto-detect
 source https://api.nuget.org/v3/index.json
 
-nuget Giraffe
+nuget Giraffe ~> 5.0.0-rc-1
 nuget Giraffe.Razor
+nuget Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation ~> 5.0
 nuget Microsoft.NET.Test.Sdk
 nuget Microsoft.AspNetCore.TestHost
 nuget xunit

@@ -1,5 +1,5 @@
 # ----------------------------------------------
-# Install .NET Core SDK
+# Install .NET SDK
 # ----------------------------------------------
 
 param
@@ -19,7 +19,7 @@ if ($ForceUbuntuInstall.IsPresent)
     $ubuntuVersion = Get-UbuntuVersion
 
     Write-Host "Ubuntu version: $ubuntuVersion"
-    Install-NetCoreSdkForUbuntu $ubuntuVersion $majorMinorVer
+    Install-NetSdkForUbuntu $ubuntuVersion $majorMinorVer
     return
 }
 
@@ -29,7 +29,7 @@ if ($ForceUbuntuInstall.IsPresent)
 $globalJson = Get-Item "$PSScriptRoot\..\global.json"
 Rename-Item -Path $globalJson.FullName -NewName "global.json.bak" -Force
 
-# Get the current .NET Core SDK version
+# Get the current .NET SDK version
 $currentSdk = dotnet-version
 
 # After we established the current installed .NET SDK we can put the global.json back
@@ -47,8 +47,8 @@ Write-Host "The current .NET SDK ($currentSdk) doesn't match the project's desir
 
 Write-Host "Attempting to download and install the correct .NET SDK..."
 
-$sdkZipPath = Get-NetCoreSdkFromWeb $desiredSdk
-Install-NetCoreSdkFromArchive $sdkZipPath
+$sdkZipPath = Get-NetSdkFromWeb $desiredSdk
+Install-NetSdkFromArchive $sdkZipPath
 
 Write-Host ".NET SDK installation complete." -ForegroundColor Green
 dotnet-version
