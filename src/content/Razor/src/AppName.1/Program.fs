@@ -43,17 +43,22 @@ let errorHandler (ex : Exception) (logger : ILogger) =
 // ---------------------------------
 
 let configureCors (builder : CorsPolicyBuilder) =
-    builder.WithOrigins("http://localhost:8080")
-           .AllowAnyMethod()
-           .AllowAnyHeader()
-           |> ignore
+    builder
+        .WithOrigins(
+            "http://localhost:5000",
+            "https://localhost:5001")
+       .AllowAnyMethod()
+       .AllowAnyHeader()
+       |> ignore
 
 let configureApp (app : IApplicationBuilder) =
     let env = app.ApplicationServices.GetService<IWebHostEnvironment>()
-    (match env.EnvironmentName with
-    | "Development" -> app.UseDeveloperExceptionPage()
-    | _ -> app.UseGiraffeErrorHandler(errorHandler))
-        .UseHttpsRedirection()
+    (match env.IsDevelopment() with
+    | true  ->
+        app.UseDeveloperExceptionPage()
+    | false ->
+        app .UseGiraffeErrorHandler(errorHandler)
+            .UseHttpsRedirection())
         .UseCors(configureCors)
         .UseStaticFiles()
         .UseGiraffe(webApp)
@@ -67,8 +72,7 @@ let configureServices (services : IServiceCollection) =
     services.AddGiraffe() |> ignore
 
 let configureLogging (builder : ILoggingBuilder) =
-    builder.AddFilter(fun l -> l.Equals LogLevel.Error)
-           .AddConsole()
+    builder.AddConsole()
            .AddDebug() |> ignore
 
 [<EntryPoint>]
