@@ -3,7 +3,7 @@ namespace AppName._1
 module HttpHandlers =
 
     open Microsoft.AspNetCore.Http
-    open FSharp.Control.Tasks.V2.ContextInsensitive
+    open FSharp.Control.Tasks
     open Giraffe
     open AppName._1.Models
 
