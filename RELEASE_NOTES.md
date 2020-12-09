@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+## 1.3.0
+
+- Removed log filter
+- Improved default CORS policy
+- HTTPS redirection not during Development
+- Updated to Giraffe 5.0.0-rc-6 with Ply
+
 ## 1.2.0
 
 - Updated all templates to .NET 5 and Giraffe 5.0.0-rc-1

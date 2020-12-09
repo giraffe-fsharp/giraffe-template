@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(Paket)' == false OR '$(Paket)' == ''">
-    <PackageReference Include="Giraffe" Version="5.0.0-rc-1" />
-    <PackageReference Include="TaskBuilder.fs" Version="2.1.*" />
+    <PackageReference Include="Giraffe" Version="5.0.0-rc-6" />
+    <PackageReference Include="Ply" Version="0.3.*" />
   </ItemGroup>
 
   <ItemGroup>

@@ -44,7 +44,7 @@ Whenever there is a new version of the Giraffe template you can update it by re-
 You can also explicitly set the version when installing the template:
 
 ```
-dotnet new -i "giraffe-template::1.0.0"
+dotnet new -i "giraffe-template::1.3.0"
 ```
 
 ## Basics
