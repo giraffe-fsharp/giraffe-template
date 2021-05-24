@@ -61,6 +61,8 @@ If you wish to use [Paket](https://fsprojects.github.io/Paket/) for your depende
 dotnet new giraffe --Paket
 ```
 
+The template uses HTTPS redirection when run in production which is the default unless explicitly overridden. If you don't have a certificate configured for HTTPS, be sure to set `ASPNETCORE_ENVIRONMENT=Development`. In order to test production mode during development you can generate a self signed certificate using this guide: https://docs.microsoft.com/en-us/dotnet/core/additional-tools/self-signed-certificates-guide
+
 The Giraffe template only supports the F# language at the moment (given that Giraffe is an F# web framework this is on purpose).
 
 Further information and more help can be found by running `dotnet new giraffe --help` in your terminal.

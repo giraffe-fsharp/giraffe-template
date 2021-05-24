@@ -28,4 +28,6 @@ After a successful build you can start the web application by executing the foll
 dotnet run -p src/AppName.1
 ```
 
+The application uses HTTPS redirection when run in production which is the default unless explicitly overridden. If you don't have a certificate configured for HTTPS, be sure to set `ASPNETCORE_ENVIRONMENT=Development`. In order to test production mode during development you can generate a self signed certificate using this guide: https://docs.microsoft.com/en-us/dotnet/core/additional-tools/self-signed-certificates-guide
+
 After the application has started visit [http://localhost:5000](http://localhost:5000) in your preferred browser.
