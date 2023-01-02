@@ -1,8 +1,9 @@
 storage: none
-framework: auto-detect
+framework: net6.0 
 source https://api.nuget.org/v3/index.json
 
-nuget Giraffe ~> 5.0.0-rc-1
+nuget FSharp.Core ~> 6.0.0
+nuget Giraffe ~> 6.0.0
 nuget Microsoft.NET.Test.Sdk
 nuget Microsoft.AspNetCore.TestHost
 nuget xunit
