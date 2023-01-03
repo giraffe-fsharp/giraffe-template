@@ -46,15 +46,15 @@ dotnet-build   $giraffeTests
 dotnet-test    $giraffeTests
 
 # Test Razor template
-Write-Host "Building and testing Razor tempalte..." -ForegroundColor Magenta
-$razorApp       = "src/content/Razor/src/AppName.1/AppName.1.fsproj"
-$razorTests     = "src/content/Razor/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
+# Write-Host "Building and testing Razor tempalte..." -ForegroundColor Magenta
+# $razorApp       = "src/content/Razor/src/AppName.1/AppName.1.fsproj"
+# $razorTests     = "src/content/Razor/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
 
-dotnet-restore $razorApp
-dotnet-build   $razorApp
-dotnet-restore $razorTests
-dotnet-build   $razorTests
-dotnet-test    $razorTests
+# dotnet-restore $razorApp
+# dotnet-build   $razorApp
+# dotnet-restore $razorTests
+# dotnet-build   $razorTests
+# dotnet-test    $razorTests
 
 # Test DotLiquid template
 Write-Host "Building and testing DotLiquid tempalte..." -ForegroundColor Magenta
@@ -113,7 +113,7 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
         # Creating all permutations
         Write-Host "Creating all permutations of the giraffe-tempalte..." -ForegroundColor Magenta
 
-        $viewEngines = "Giraffe", "Razor", "DotLiquid", "None"
+        $viewEngines = "Giraffe", "DotLiquid", "None"
         foreach ($viewEngine in $viewEngines)
         {
             Write-Host "Creating templates for view engine: $viewEngine..." -ForegroundColor Magenta

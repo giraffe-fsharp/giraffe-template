@@ -13,7 +13,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <releaseNotes>https://raw.githubusercontent.com/giraffe-fsharp/Giraffe/master/RELEASE_NOTES.md</releaseNotes>
         <language>en-GB</language>
-        <tags>giraffe web app razor pages micro service dotnet new template</tags>
+        <tags>giraffe web app pages micro service dotnet new template</tags>
         <packageTypes>
             <packageType name="Template" />
         </packageTypes>

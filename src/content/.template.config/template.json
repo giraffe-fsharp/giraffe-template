@@ -19,10 +19,6 @@
           "description": "Giraffe.ViewEngine views"
         },
         {
-          "choice": "razor",
-          "description": "MVC Razor views"
-        },
-        {
           "choice": "dotliquid",
           "description": "DotLiquid template views"
         },
@@ -75,43 +71,6 @@
       "source": "./Giraffe/",
       "target": "./",
       "condition": "(ViewEngine == \"giraffe\") && (Solution)",
-      "modifiers": [
-        {
-          "condition": "(ExcludeTests)",
-          "exclude": [ "**/AppName.1.Tests/**/*" ]
-        },
-        {
-          "condition": "(!Paket)",
-          "exclude": [ "**/paket.*" ]
-        }
-      ]
-    },
-    {
-      "source": "./Razor/src/AppName.1/",
-      "target": "./",
-      "condition": "(ViewEngine == \"razor\") && (!Solution)",
-      "modifiers": [
-        {
-          "condition": "(!Paket)",
-          "exclude": [ "**/paket.*" ]
-        }
-      ]
-    },
-    {
-      "source": "./Razor/",
-      "target": "./",
-      "condition": "(ViewEngine == \"razor\") && (!Solution) && (Paket)",
-      "modifiers": [
-        {
-          "condition": "(!Solution)",
-          "exclude": [ "tests/**/*", "src/**/*" ]
-        }
-      ]
-    },
-    {
-      "source": "./Razor/",
-      "target": "./",
-      "condition": "(ViewEngine == \"razor\") && (Solution)",
       "modifiers": [
         {
           "condition": "(ExcludeTests)",

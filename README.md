@@ -72,20 +72,19 @@ Further information and more help can be found by running `dotnet new giraffe --
 The Giraffe template supports four project templates, three different view engines and one API only template:
 
 - `giraffe` (default)
-- `razor`
 - `dotliquid`
 - `none`
 
 Use the `--ViewEngine` parameter (short `-V`) to set one of the supported values from above:
 
 ```
-dotnet new giraffe --ViewEngine razor
+dotnet new giraffe --ViewEngine dotliquie
 ```
 
 The same command can be abbreviated using the `-V` parameter:
 
 ```
-dotnet new giraffe -V razor
+dotnet new giraffe -V dotliquie
 ```
 
 If you do not specify the `--ViewEngine` parameter then the `dotnet new giraffe` command will automatically create a Giraffe web application with the `Giraffe.ViewEngine` templating engine.
