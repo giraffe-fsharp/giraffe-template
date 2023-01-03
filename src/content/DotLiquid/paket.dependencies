@@ -3,9 +3,8 @@ framework: auto-detect
 source https://api.nuget.org/v3/index.json
 
 nuget Giraffe ~> 6.0.0
-nuget Giraffe.DotLiquid
-nuget Ply
+nuget Giraffe.DotLiquid = 3.0.0-rc-1
 nuget Microsoft.NET.Test.Sdk
-nuget Microsoft.AspNetCore.TestHost
+nuget Microsoft.AspNetCore.TestHost ~> 6.0.0
 nuget xunit
 nuget xunit.runner.visualstudio

@@ -4,8 +4,8 @@ source https://api.nuget.org/v3/index.json
 
 nuget Giraffe ~> 6.0.0
 nuget Giraffe.Razor
-nuget Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation ~> 5.0
+nuget Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation ~> 6.0.0
 nuget Microsoft.NET.Test.Sdk
-nuget Microsoft.AspNetCore.TestHost
+nuget Microsoft.AspNetCore.TestHost ~> 6.0.0
 nuget xunit
 nuget xunit.runner.visualstudio
