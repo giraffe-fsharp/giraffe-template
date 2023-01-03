@@ -1,3 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageType>Template</PackageType>
+    <PackageVersion>1.3.1</PackageVersion>
+    <PackageId>giraffe-template</PackageId>
+    <Title>Giraffe Template for dotnet-new</Title>
+    <Authors>Dustin Moris Gorski, David Sinclair and contributors</Authors>
+    <Description>A dotnet-new template for Giraffe web applications.</Description>
+    <PackageTags>giraffe;web;app;pages;microservice;dotnet-new;templates</PackageTags>
+
+    <TargetFramework>net6.0</TargetFramework>
+
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>content</ContentTargetFolders>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="../giraffe-64x64.png" />
+    <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**" />
+    <Compile Remove="**\*" />
+  </ItemGroup>
+
+</Project>
+
+<!-- original nuspec file, for reference
 <?xml version="1.0" encoding="utf-8"?>
 <package>
     <metadata>
@@ -23,3 +52,4 @@
         <file src="content/**/*.*" />
     </files>
 </package>
+-->

@@ -35,7 +35,7 @@ Write-DotnetVersions
 Remove-OldBuildArtifacts
 
 # Test Giraffe template
-Write-Host "Building and testing Giraffe tempalte..." -ForegroundColor Magenta
+Write-Host "Building and testing Giraffe template..." -ForegroundColor Magenta
 $giraffeApp     = "src/content/Giraffe/src/AppName.1/AppName.1.fsproj"
 $giraffeTests   = "src/content/Giraffe/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
 
@@ -45,8 +45,9 @@ dotnet-restore $giraffeTests
 dotnet-build   $giraffeTests
 dotnet-test    $giraffeTests
 
+# NOTE: Razor was disabled during the upgrade to 6.0 because Giraffe.Razor did not support 6.0
 # Test Razor template
-# Write-Host "Building and testing Razor tempalte..." -ForegroundColor Magenta
+# Write-Host "Building and testing Razor template..." -ForegroundColor Magenta
 # $razorApp       = "src/content/Razor/src/AppName.1/AppName.1.fsproj"
 # $razorTests     = "src/content/Razor/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
 
@@ -57,7 +58,7 @@ dotnet-test    $giraffeTests
 # dotnet-test    $razorTests
 
 # Test DotLiquid template
-Write-Host "Building and testing DotLiquid tempalte..." -ForegroundColor Magenta
+Write-Host "Building and testing DotLiquid template..." -ForegroundColor Magenta
 $dotLiquidApp   = "src/content/DotLiquid/src/AppName.1/AppName.1.fsproj"
 $dotLiquidTests = "src/content/DotLiquid/tests/AppName.1.Tests/AppName.1.Tests.fsproj"
 
@@ -81,25 +82,19 @@ dotnet-test    $noneTests
 # Create template NuGet package
 Remove-OldBuildArtifacts
 Write-Host "Building NuGet package..." -ForegroundColor Magenta
-Invoke-Cmd "nuget pack src/giraffe-template.nuspec"
+Invoke-Cmd "dotnet pack -c Release src/giraffe-template.csproj"
 
 if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $CreatePermutations.IsPresent -or $InstallTemplate.IsPresent)
 {
     # Uninstalling Giraffe tempalte
     Write-Host "Uninstalling existing Giraffe template..." -ForegroundColor Magenta
-    $giraffeInstallation = Invoke-UnsafeCmd "dotnet new giraffe --list"
-    $giraffeInstallation
-    if ($giraffeInstallation[$giraffeInstallation.Length - 2].StartsWith("Giraffe Web App"))
-    {
-        Invoke-Cmd "dotnet new -u giraffe-template"
-    }
-    # if ($giraffeInstallation.Length -lt 6) { Invoke-Cmd "dotnet new -u giraffe-template" }
+    Invoke-UnsafeCmd "dotnet new -u giraffe-template"
 
-    $nupkg     = Get-ChildItem "./giraffe-template.$version.nupkg"
+    $nupkg     = Get-ChildItem "./src/bin/Release/giraffe-template.$version.nupkg"
     $nupkgPath = $nupkg.FullName
 
     # Installing Giraffe template
-    Write-Host "Installing newly built Giraffe tempalte..." -ForegroundColor Magenta
+    Write-Host "Installing newly built Giraffe template..." -ForegroundColor Magenta
     Invoke-Cmd "dotnet new -i $nupkgPath"
 
     if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $CreatePermutations.IsPresent)
@@ -111,7 +106,7 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
         New-Item -Name ".temp" -ItemType Directory
 
         # Creating all permutations
-        Write-Host "Creating all permutations of the giraffe-tempalte..." -ForegroundColor Magenta
+        Write-Host "Creating all permutations of the giraffe-template..." -ForegroundColor Magenta
 
         $viewEngines = "Giraffe", "DotLiquid", "None"
         foreach ($viewEngine in $viewEngines)
@@ -131,7 +126,7 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
         if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent)
         {
             # Building and testing all permutations
-            Write-Host "Building and testing all permutations of the giraffe-tempalte..." -ForegroundColor Magenta
+            Write-Host "Building and testing all permutations of the giraffe-template..." -ForegroundColor Magenta
             $isWin = Test-IsWindows
 
             Get-ChildItem ".temp" -Directory | ForEach-Object {
@@ -164,13 +159,16 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
                     Invoke-Cmd ("sh ./build.sh")
                 }
 
-                if ($UpdatePaketDependencies.IsPresent -and $isPaket)
-                {
-                    $viewEngine = $name.Replace("App", "").Replace("Paket", "").Replace("Tests", "")
-                    Copy-Item -Path "paket.lock" -Destination "../../src/content/$viewEngine/paket.lock" -Force
-                }
-
                 Pop-Location
+            }
+        }
+
+        if ($UpdatePaketDependencies.IsPresent) {
+            foreach ($viewEngine in $viewEngines)
+            {
+                Write-Host "Creating templates for view engine: $viewEngine..." -ForegroundColor Magenta
+
+                Copy-Item -Path "$tempFolder/${viewEngine}PaketApp/paket.lock" -Destination "src/content/$viewEngine/paket.lock" -Force
             }
         }
     }
