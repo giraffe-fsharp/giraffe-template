@@ -1,8 +1,8 @@
 name: Build
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: 'Running "pwsh ./build.ps1 -TestPermutations" on new push'
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Run-Tests:
     runs-on: ubuntu-22.04
     steps:
       - name: Check out repository code
