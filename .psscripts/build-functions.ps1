@@ -89,18 +89,17 @@ function Remove-OldBuildArtifacts
         Remove-Item $_ -Recurse -Force }
 }
 
-function Get-NuspecVersion ($nuspecFile)
-{
+function Get-Version ($csprojFile) {
     <#
         .DESCRIPTION
-        Gets the <version> value of a .nuspec file.
+        Gets the <version> value of a .csproj file.
 
         .PARAMETER cmd
-        The relative or absolute path to the .nuspec file.
+        The relative or absolute path to the .csproj file.
     #>
 
-    [xml] $xml = Get-Content $nuspecFile
-    [string] $version = $xml.package.metadata.version
+    [xml] $xml = Get-Content $csprojFile
+    [string] $version = $xml.Project.PropertyGroup.PackageVersion
     $version
 }
 
