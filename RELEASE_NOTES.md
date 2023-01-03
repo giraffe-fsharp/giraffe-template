@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+## 1.3.1
+
+- Upgraded to .NET 6
+- Updated all paket dependencies
+- Removed Giraffe.Razor temporarily because the package does not work with .NET 6 
+
 ## 1.3.0
 
 - Removed log filter
