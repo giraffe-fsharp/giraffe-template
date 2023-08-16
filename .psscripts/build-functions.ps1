@@ -140,7 +140,7 @@ function Get-DotNetRuntimeVersion
 
     $info = dotnet-info
     [System.Array]::Reverse($info)
-    $version = $info | Where-Object { $_.Contains("Version")  } | Select-Object -First 1
+    $version = $info | Where-Object { $_.Contains(" Version")  } | Select-Object -First 1
     $version.Split(":")[1].Trim()
 }
 
