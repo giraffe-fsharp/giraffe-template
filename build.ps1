@@ -87,11 +87,11 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
 {
     # Uninstalling Giraffe tempalte
     Write-Host "Uninstalling existing Giraffe template..." -ForegroundColor Magenta
-    $giraffeInstallation = Invoke-UnsafeCmd "dotnet new giraffe --list"
+    $giraffeInstallation = Invoke-UnsafeCmd "dotnet new list giraffe"
     $giraffeInstallation
-    if ($giraffeInstallation[$giraffeInstallation.Length - 2].StartsWith("Giraffe Web App"))
+    if ($giraffeInstallation.Count -gt 0 -and $giraffeInstallation[$giraffeInstallation.Length - 2].StartsWith("Giraffe"))
     {
-        Invoke-Cmd "dotnet new -u giraffe-template"
+        Invoke-Cmd "dotnet new uninstall giraffe-template"
     }
     # if ($giraffeInstallation.Length -lt 6) { Invoke-Cmd "dotnet new -u giraffe-template" }
 
@@ -100,7 +100,7 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
 
     # Installing Giraffe template
     Write-Host "Installing newly built Giraffe tempalte..." -ForegroundColor Magenta
-    Invoke-Cmd "dotnet new -i $nupkgPath"
+    Invoke-Cmd "dotnet new install $nupkgPath"
 
     if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $CreatePermutations.IsPresent)
     {
@@ -158,7 +158,7 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
                     Invoke-Cmd "dotnet build"
                 }
                 elseif ($isWin) {
-                    Invoke-Cmd ("./build.bat")
+                    Invoke-Cmd (".\build.bat")
                 }
                 else {
                     Invoke-Cmd ("sh ./build.sh")
@@ -166,7 +166,7 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
 
                 if ($UpdatePaketDependencies.IsPresent -and $isPaket)
                 {
-                    $viewEngine = $name.Replace("App", "").Replace("Paket", "").Replace("Tests", "")
+                    $viewEngine = $name.Replace("App", "").Replace("Paket", "").Replace("Tests", "").Replace("Raw", "")
                     Copy-Item -Path "paket.lock" -Destination "../../src/content/$viewEngine/paket.lock" -Force
                 }
 
