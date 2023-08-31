@@ -2,9 +2,8 @@ storage: none
 framework: auto-detect
 source https://api.nuget.org/v3/index.json
 
-nuget Giraffe ~> 5.0.0-rc-6
-nuget Giraffe.DotLiquid
-nuget Ply
+nuget Giraffe ~> 6.0.0
+nuget Giraffe.DotLiquid >= 3 prerelease
 nuget Microsoft.NET.Test.Sdk
 nuget Microsoft.AspNetCore.TestHost
 nuget xunit
