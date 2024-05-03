@@ -25,6 +25,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <Import Condition="'$(Paket)' == true AND '$(Solution)' == true" Project="..\..\.paket\Paket.Restore.targets" />
   <Import Condition="'$(Paket)' == true AND '$(Solution)' == false" Project=".paket\Paket.Restore.targets" />
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
