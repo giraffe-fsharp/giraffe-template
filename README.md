@@ -32,7 +32,7 @@ Giraffe web application template for the `dotnet new` command.
 The easiest way to install the Giraffe template is by running the following command in your terminal:
 
 ```
-dotnet new -i "giraffe-template::*"
+dotnet new install "giraffe-template::*"
 ```
 
 This will pull and install the latest [giraffe-template NuGet package](https://www.nuget.org/packages/giraffe-template/) into your .NET environment and make it available to subsequent `dotnet new` commands.
@@ -44,7 +44,7 @@ Whenever there is a new version of the Giraffe template you can update it by re-
 You can also explicitly set the version when installing the template:
 
 ```
-dotnet new -i "giraffe-template::1.4.0"
+dotnet new install "giraffe-template::1.4.0"
 ```
 
 ## Basics
