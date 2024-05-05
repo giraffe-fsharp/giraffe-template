@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
   <ItemGroup Condition="'$(Paket)' == false OR '$(Paket)' == ''">
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.*" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.*" />
-    <PackageReference Include="xunit" Version="2.5.*" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.*" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.*" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.*" />
+    <PackageReference Include="xunit" Version="2.8.*" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.*" />
   </ItemGroup>
 
   <ItemGroup>

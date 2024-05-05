@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+## 1.5.0
+
+- Updated templates to .NET 8 and latest Giraffe
+
+
 ## 1.4.0
 
 - Updated templates to .NET 7 and latest Giraffe

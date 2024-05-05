@@ -10,29 +10,39 @@ Giraffe web application template for the `dotnet new` command.
 
 ## Table of contents
 
-- [Installation](#installation)
-- [Updating the template](#updating-the-template)
-- [Basics](#basics)
-- [Template Options](#template-options)
+- [Giraffe Template](#giraffe-template)
+  - [Table of contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Updating the template](#updating-the-template)
+  - [Basics](#basics)
+  - [Template Options](#template-options)
     - [ViewEngine](#viewengine)
     - [Solution](#solution)
     - [ExcludeTests](#excludetests)
     - [Paket](#paket)
-- [Known Issues](#known-issues)
+  - [Known Issues](#known-issues)
     - [Cyclic reference](#cyclic-reference)
     - [.NET Core 2.0 issues](#net-core-20-issues)
     - [Using Visual Studio](#using-visual-studio)
-- [Nightly builds and NuGet feed](#nightly-builds-and-nuget-feed)
-- [Contributing](#contributing)
-- [More information](#more-information)
-- [License](#license)
+        - [Example:](#example)
+  - [Nightly builds and NuGet feed](#nightly-builds-and-nuget-feed)
+  - [Contributing](#contributing)
+    - [Examples](#examples)
+      - [Default](#default)
+      - [Installing the new template](#installing-the-new-template)
+      - [Creating a test project for each permutation](#creating-a-test-project-for-each-permutation)
+      - [Creating and testing all test projects for all permutations](#creating-and-testing-all-test-projects-for-all-permutations)
+      - [Creating and testing all permutations and updating the `paket.lock` file afterwards](#creating-and-testing-all-permutations-and-updating-the-paketlock-file-afterwards)
+      - [Testling the template locally](#testling-the-template-locally)
+  - [More information](#more-information)
+  - [License](#license)
 
 ## Installation
 
 The easiest way to install the Giraffe template is by running the following command in your terminal:
 
 ```
-dotnet new -i "giraffe-template::*"
+dotnet new install "giraffe-template::*"
 ```
 
 This will pull and install the latest [giraffe-template NuGet package](https://www.nuget.org/packages/giraffe-template/) into your .NET environment and make it available to subsequent `dotnet new` commands.
@@ -43,21 +53,21 @@ Whenever there is a new version of the Giraffe template you can update it by re-
 
 You can also explicitly set the version when installing the template:
 
-```
-dotnet new -i "giraffe-template::1.4.0"
+```console
+dotnet new install "giraffe-template::1.4.0"
 ```
 
 ## Basics
 
 After the template has been installed you can create a new Giraffe web application by simply running `dotnet new giraffe` in your terminal:
 
-```
+```console
 dotnet new giraffe
 ```
 
 If you wish to use [Paket](https://fsprojects.github.io/Paket/) for your dependency management use the `--Paket` or `-P` parameter when creating a new application:
 
-```
+```console
 dotnet new giraffe --Paket
 ```
 
@@ -80,13 +90,13 @@ The Giraffe template supports four project templates, three different view engin
 
 Use the `--ViewEngine` parameter (short `-V`) to set one of the supported values from above:
 
-```
+```console
 dotnet new giraffe --ViewEngine razor
 ```
 
 The same command can be abbreviated using the `-V` parameter:
 
-```
+```console
 dotnet new giraffe -V razor
 ```
 
@@ -96,13 +106,13 @@ If you do not specify the `--ViewEngine` parameter then the `dotnet new giraffe`
 
 When running `dotnet new giraffe` the created project will only be a single Giraffe project which can be added to an existing .NET Core solution. However, when generating a new Giraffe project from a blank sheet then the `--Solution` (or short `-S`) parameter can simplify the generation of an entire solution, including a `.sln` file and accompanied test projects:
 
-```
+```console
 dotnet new giraffe --Solution
 ```
 
 This will create the following structure:
 
-```
+```text
 src/
   - AppName/
       - Views/
@@ -158,7 +168,7 @@ The affected SDKs are `2.1.x` where `x < 300`. The issue has been fixed in the S
 
 If you do run into this issue the workaround is to explicitly specify the language:
 
-```
+```console
 dotnet new giraffe -lang F#
 ```
 
@@ -176,7 +186,7 @@ All official Giraffe packages are published to the official and public NuGet fee
 
 Unofficial builds (such as pre-release builds from the `develop` branch and pull requests) produce unofficial pre-release NuGet packages which can be pulled from the project's public NuGet feed on AppVeyor:
 
-```
+```url
 https://ci.appveyor.com/nuget/giraffe-template
 ```
 
@@ -198,7 +208,7 @@ The `./build.ps1` PowerShell script comes with the following feature switches:
 
 ### Examples
 
-#### Default:
+#### Default
 
 Windows:
 
@@ -212,7 +222,7 @@ macOS and Linux:
 $ pwsh ./build.ps1
 ```
 
-#### Installing the new template:
+#### Installing the new template
 
 Windows:
 
@@ -226,7 +236,7 @@ macOS and Linux:
 $ pwsh ./build.ps1 -InstallTemplate
 ```
 
-#### Creating a test project for each permutation:
+#### Creating a test project for each permutation
 
 Windows:
 
@@ -240,7 +250,7 @@ macOS and Linux:
 $ pwsh ./build.ps1 -CreatePermutations
 ```
 
-#### Creating and testing all test projects for all permutations:
+#### Creating and testing all test projects for all permutations
 
 Windows:
 
@@ -254,7 +264,7 @@ macOS and Linux:
 $ pwsh ./build.ps1 -TestPermutations
 ```
 
-#### Creating and testing all permutations and updating the `paket.lock` file afterwards:
+#### Creating and testing all permutations and updating the `paket.lock` file afterwards
 
 Windows:
 
@@ -267,6 +277,40 @@ macOS and Linux:
 ```powershell
 $ pwsh ./build.ps1 -UpdatePaketDependencies
 ```
+
+#### Testling the template locally
+
+If you already have giraffe-template installed, then
+
+```console
+$ dotnet new uninstall giraffe-template
+```
+
+This will install from the local file system
+
+```console
+dotnet new install ./src/ --force
+```
+
+To uninstall later:
+
+```console
+$ dotnet new uninstall <some-path>/giraffe-template/src
+```
+
+To use the template:
+
+```console
+dotnet new giraffe
+```
+
+Test it locally:
+
+```console
+dotnet run --project giraffe-template.fsproj
+```
+
+Remember to remove the template generated files
 
 ## More information
 
