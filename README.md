@@ -182,6 +182,28 @@ The basic giraffe template doesn't work with `IIS Express` which may be the defa
 
 ## Nightly builds and NuGet feed
 
+### NuGet trusted publishing
+
+Tag pushes publish through [publish.yml](.github/workflows/publish.yml), after
+the existing `build.ps1` builds and tests all four templates and packs the
+NuGet package on Windows. The tag must match the version in
+`src/giraffe-template.nuspec`, as in the previous AppVeyor release process.
+Pull requests run the same build without publishing. AppVeyor continues to
+build unofficial packages but no longer deploys to nuget.org.
+
+Publishing uses GitHub OIDC and `NuGet/login` as the personal NuGet account
+`dsyme`, with package permissions provided by the `fsprojects` NuGet organization.
+Before publishing, configure a [NuGet trusted publishing policy](https://www.nuget.org/account/trustedpublishing)
+with package owner `fsprojects`, GitHub repository owner `giraffe-fsharp`,
+repository `giraffe-template`, workflow filename `publish.yml`, no environment,
+and scope to push new versions of the existing package `giraffe-template`.
+Keep `dsyme` an active member of the NuGet organization.
+
+After a successful trusted-publishing release, revoke the old AppVeyor NuGet
+API key if it is not used elsewhere.
+
+### Package feeds
+
 All official Giraffe packages are published to the official and public NuGet feed.
 
 Unofficial builds (such as pre-release builds from the `develop` branch and pull requests) produce unofficial pre-release NuGet packages which can be pulled from the project's public NuGet feed on AppVeyor:
