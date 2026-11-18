@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 8.0.300
+      - uses: NuGet/setup-nuget@v2
+      - name: Build, test, pack and test template permutations
+        shell: pwsh
+        run: ./build.ps1 -TestPermutations
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nupkg
+          path: giraffe-template.*.nupkg
+          if-no-files-found: error
