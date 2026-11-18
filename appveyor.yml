@@ -16,11 +16,3 @@ artifacts:
 nuget:
   account_feed: false
   project_feed: true
-deploy:
-  provider: NuGet
-  api_key:
-    secure: U0+zbuUi8+HYyp6Ks14srAKnN379SjFH+Se7wwVwyDMQ+OmghTby2HZrZMtiQvnv
-  skip_symbols: false
-  artifact: /.*\.nupkg/
-  on:
-    appveyor_repo_tag: true
