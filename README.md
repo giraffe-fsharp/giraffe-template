@@ -6,7 +6,7 @@ Giraffe web application template for the `dotnet new` command.
 
 [![NuGet Info](https://buildstats.info/nuget/giraffe-template)](https://www.nuget.org/packages/giraffe-template/)
 
-[![Build History](https://buildstats.info/appveyor/chart/dustinmoris/giraffe-template?branch=develop)](https://ci.appveyor.com/project/dustinmoris/giraffe-template/history?branch=develop)
+[![Build](https://github.com/giraffe-fsharp/giraffe-template/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/giraffe-fsharp/giraffe-template/actions/workflows/build.yml)
 
 ## Table of contents
 
@@ -187,9 +187,8 @@ The basic giraffe template doesn't work with `IIS Express` which may be the defa
 Tag pushes publish through [publish.yml](.github/workflows/publish.yml), after
 the existing `build.ps1` builds and tests all four templates and packs the
 NuGet package on Windows. The tag must match the version in
-`src/giraffe-template.nuspec`, as in the previous AppVeyor release process.
-Pull requests run the same build without publishing. AppVeyor continues to
-build unofficial packages but no longer deploys to nuget.org.
+`src/giraffe-template.nuspec`. Pull requests run the same build without
+publishing. GitHub Actions handles all builds and package publication.
 
 Publishing uses GitHub OIDC and `NuGet/login` as the personal NuGet account
 `dsyme`, with package permissions provided by the `fsprojects` NuGet organization.
@@ -206,13 +205,15 @@ API key if it is not used elsewhere.
 
 All official Giraffe packages are published to the official and public NuGet feed.
 
-Unofficial builds (such as pre-release builds from the `develop` branch and pull requests) produce unofficial pre-release NuGet packages which can be pulled from the project's public NuGet feed on AppVeyor:
+Builds of `master` and pull requests upload the generated NuGet package as the
+`nupkg` artifact on the [GitHub Actions build run](https://github.com/giraffe-fsharp/giraffe-template/actions/workflows/build.yml).
+Download and extract the artifact, then install the local package:
 
-```url
-https://ci.appveyor.com/nuget/giraffe-template
+```console
+dotnet new install ./giraffe-template.<version>.nupkg
 ```
 
-If you add this source to your NuGet CLI or project settings then you can pull unofficial NuGet packages for quick feature testing or urgent hot fixes.
+These artifacts are for testing and are not published to a separate package feed.
 
 ## Contributing
 

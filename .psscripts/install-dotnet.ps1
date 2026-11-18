@@ -24,7 +24,7 @@ if ($ForceUbuntuInstall.IsPresent)
 }
 
 # Rename the global.json before making the dotnet --version call
-# This will prevent AppVeyor to fail because it might not find
+# This prevents the SDK check from failing if it cannot find
 # the desired SDK specified in the global.json
 $globalJson = Get-Item "$PSScriptRoot\..\global.json"
 Rename-Item -Path $globalJson.FullName -NewName "global.json.bak" -Force
