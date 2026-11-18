@@ -171,25 +171,6 @@ function Get-DesiredSdk
 
 
 # ----------------------------------------------
-# AppVeyor functions
-# ----------------------------------------------
-
-function Test-IsAppVeyorBuild                  { return ($env:APPVEYOR -eq $true) }
-function Test-IsAppVeyorBuildTriggeredByGitTag { return ($env:APPVEYOR_REPO_TAG -eq $true) }
-function Get-AppVeyorGitTag                    { return $env:APPVEYOR_REPO_TAG_NAME }
-
-function Update-AppVeyorBuildVersion ($version)
-{
-    if (Test-IsAppVeyorBuild)
-    {
-        Write-Host "Updating AppVeyor build version..." -ForegroundColor Magenta
-        $buildVersion = "$version-$env:APPVEYOR_BUILD_NUMBER"
-        Write-Host "Setting AppVeyor build version to $buildVersion."
-        Update-AppveyorBuild -Version $buildVersion
-    }
-}
-
-# ----------------------------------------------
 # Host Writing functions
 # ----------------------------------------------
 

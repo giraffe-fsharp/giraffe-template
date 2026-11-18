@@ -20,17 +20,6 @@ Import-module "$PSScriptRoot/.psscripts/build-functions.ps1" -Force
 
 Write-BuildHeader "Starting giraffe-template build script"
 
-$nuspec = "./src/giraffe-template.nuspec"
-$version = Get-NuspecVersion $nuspec
-
-Update-AppVeyorBuildVersion $version
-
-if (Test-IsAppVeyorBuildTriggeredByGitTag)
-{
-    $gitTag = Get-AppVeyorGitTag
-    Test-CompareVersions $version $gitTag
-}
-
 Write-DotnetVersions
 Remove-OldBuildArtifacts
 
