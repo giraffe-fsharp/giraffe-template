@@ -95,7 +95,10 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
     }
     # if ($giraffeInstallation.Length -lt 6) { Invoke-Cmd "dotnet new -u giraffe-template" }
 
-    $nupkg     = Get-ChildItem "./giraffe-template.$version.nupkg"
+    # NuGet normalizes versions such as 1.5.002 to 1.5.2 in package filenames.
+    $nupkg     = Get-ChildItem "./giraffe-template.*.nupkg" |
+        Sort-Object LastWriteTime -Descending |
+        Select-Object -First 1
     $nupkgPath = $nupkg.FullName
 
     # Installing Giraffe template
