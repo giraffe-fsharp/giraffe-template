@@ -1,9 +1,10 @@
 storage: none
-framework: auto-detect
+framework: net8.0
 source https://api.nuget.org/v3/index.json
 
-nuget Giraffe ~> 6.4.0
-nuget Microsoft.NET.Test.Sdk
-nuget Microsoft.AspNetCore.TestHost
-nuget xunit
-nuget xunit.runner.visualstudio
+nuget Giraffe 8.3.0
+nuget System.Text.Json ~> 8.0
+nuget Microsoft.NET.Test.Sdk ~> 17.9.0
+nuget Microsoft.AspNetCore.TestHost ~> 8.0
+nuget xunit ~> 2.8.0
+nuget xunit.runner.visualstudio ~> 2.8.0

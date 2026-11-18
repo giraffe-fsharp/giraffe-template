@@ -149,6 +149,7 @@ if ($UpdatePaketDependencies.IsPresent -or $TestPermutations.IsPresent -or $Crea
 
                 if ($isRaw) {
                     if ($isPaket) {
+                        Invoke-Cmd "dotnet tool restore"
                         if ($UpdatePaketDependencies.IsPresent) {
                             Invoke-Cmd "dotnet paket install"
                         } else {

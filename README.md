@@ -196,6 +196,18 @@ If you add this source to your NuGet CLI or project settings then you can pull u
 
 Please use the `./build.ps1` PowerShell script to build and test the Giraffe template before submitting a PR.
 
+The templates target .NET 8 and reference Giraffe 8.3.0. The view-engine
+packages use the latest published versions, including prereleases:
+Giraffe.ViewEngine 2.0.0-alpha-1, Giraffe.Razor 5.1.0-rc-2 and
+Giraffe.DotLiquid 3.0.0-rc-1. Paket templates use Paket 9.0.2 for .NET 8
+framework support; their test-package and System.Text.Json constraints keep
+dependency resolution compatible with .NET 8 and the direct package references.
+
+GitHub Actions runs `./build.ps1 -TestPermutations` on pull requests and pushes
+to `master`, building, testing and packing the template and validating all 24
+view-engine, solution, test and package-manager combinations. This workflow
+does not publish packages.
+
 The `./build.ps1` PowerShell script comes with the following feature switches:
 
 | Switch | Description |

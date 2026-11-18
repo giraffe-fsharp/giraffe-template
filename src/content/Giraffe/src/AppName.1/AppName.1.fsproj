@@ -7,8 +7,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup Condition="'$(Paket)' == false OR '$(Paket)' == ''">
-    <PackageReference Include="Giraffe" Version="6.4.0" />
-    <PackageReference Include="Giraffe.ViewEngine" Version="1.4.*" />
+    <PackageReference Include="Giraffe" Version="8.3.0" />
+    <PackageReference Include="Giraffe.ViewEngine" Version="2.0.0-alpha-1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.fs" />

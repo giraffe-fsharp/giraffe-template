@@ -7,7 +7,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup Condition="'$(Paket)' == false OR '$(Paket)' == ''">
-    <PackageReference Include="Giraffe" Version="6.4.0" />
+    <PackageReference Include="Giraffe" Version="8.3.0" />
     <PackageReference Include="Giraffe.DotLiquid" Version="3.0.0-rc-1" />
   </ItemGroup>
   <ItemGroup>
